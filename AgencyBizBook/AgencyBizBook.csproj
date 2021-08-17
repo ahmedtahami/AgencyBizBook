@@ -337,9 +337,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Investment\" />
-    <Folder Include="Views\Liability\" />
-    <Folder Include="Views\Stock\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -422,6 +419,11 @@
     <Content Include="Views\Sale\Index.cshtml" />
     <Content Include="Views\Sale\Create.cshtml" />
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
+    <Content Include="Views\Investment\Index.cshtml" />
+    <Content Include="Views\Investment\Create.cshtml" />
+    <Content Include="Views\Investment\Edit.cshtml" />
+    <Content Include="Views\Liability\Index.cshtml" />
+    <Content Include="Views\Stock\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

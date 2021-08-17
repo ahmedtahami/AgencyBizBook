@@ -13,7 +13,8 @@ namespace AgencyBizBook.Controllers
         // GET: Stock
         public ActionResult Index()
         {
-            return View();
+            var modelList = db.Stocks.ToList();
+            return View(modelList);
         }
     }
 }

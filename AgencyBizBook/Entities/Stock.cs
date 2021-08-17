@@ -16,7 +16,7 @@ namespace AgencyBizBook.Entities
         [ForeignKey("ProductId")]
         public virtual Product Product { get; set; }
         public int Quantity { get; set; }
-        public double Weight { get; set; }
+        public double TotalWeight { get; set; }
         public DateTime LastUpdated { get; set; }
     }
 }

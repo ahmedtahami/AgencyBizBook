@@ -13,7 +13,8 @@ namespace AgencyBizBook.Controllers
         // GET: Liability
         public ActionResult Index()
         {
-            return View();
+            var modelList = db.Labilities.ToList();
+            return View(modelList);
         }
     }
 }

@@ -36,9 +36,10 @@ namespace AgencyBizBook.Controllers
 
                 foreach (var item in model.Products)
                 {
+                    var productWeight = ((from p in db.Products where p.Id == item.ProductId select p).FirstOrDefault().NetWeight) * item.Quantity;
                     purchase.TotalQuantity += item.Quantity;
                     purchase.TotalAmount += item.Rate;
-                    purchase.TotalWeight += ((from p in db.Products where p.Id == item.ProductId select p).FirstOrDefault().NetWeight) * item.Quantity;
+                    purchase.TotalWeight += productWeight;
 
                     PurchaseDetail purchaseDetail = new PurchaseDetail()
                     {
@@ -48,8 +49,38 @@ namespace AgencyBizBook.Controllers
                         PurchaseId = purchase.Id
                     };
                     db.PurchaseDetails.Add(purchaseDetail);
+
+                    var productStock = db.Stocks.Where(p => p.ProductId == item.ProductId).FirstOrDefault();
+                    if (productStock == null)
+                    {
+                        Stock stock = new Stock()
+                        {
+                            LastUpdated = DateTime.Now,
+                            ProductId = item.ProductId,
+                            Quantity = item.Quantity,
+                            TotalWeight = productWeight
+                        };
+                        db.Stocks.Add(stock);
+                    }
+                    else
+                    {
+                        productStock.LastUpdated = DateTime.Now;
+                        productStock.Quantity += item.Quantity;
+                        productStock.TotalWeight += productWeight;
+                        db.Entry(productStock).State = System.Data.Entity.EntityState.Modified;
+                    }
+                    
                 }
                 db.Purchases.Add(purchase);
+                Payment payment = new Payment()
+                {
+                    Credit = 0,
+                    Date = DateTime.Now,
+                    Debit = purchase.TotalAmount,
+                    Type = "Purchase",
+                    Description = "Purchase",
+                };
+                db.Payments.Add(payment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
