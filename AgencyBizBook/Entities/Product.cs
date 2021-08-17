@@ -15,6 +15,6 @@ namespace AgencyBizBook.Entities
         public string Name { get; set; }
         public double SalePrice { get; set; }
         public double PurchasePrice { get; set; }
-        public string NetWeight { get; set; }
+        public double NetWeight { get; set; }
     }
 }

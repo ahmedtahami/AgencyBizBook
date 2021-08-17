@@ -15,6 +15,9 @@ namespace AgencyBizBook.Entities
         public int ProductId { get; set; }
         [ForeignKey("ProductId")]
         public virtual Product Product { get; set; }
+        public int PurchaseId { get; set; }
+        [ForeignKey("PurchaseId")]
+        public virtual Purchase Purchase { get; set; }
         public int Quantity { get; set; }
         public double Rate { get; set; }
     }

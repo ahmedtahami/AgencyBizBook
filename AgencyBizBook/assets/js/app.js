@@ -4,7 +4,47 @@
  Website: www.themesdesign.in
  File: Main js
  */
+$(document).on('click', 'button.btn-air-warning', function () {
+    $(this).closest('tr').remove();
+    reindex();
+    return false;
+});
+$('#addRow').on('click', function () {
+    var t = $('.tblProducts');
+    var index = $('#index').val();
+    
+    t.append("<tr> <td><input type='hidden' class='txtname' name='Products[" + $('#index').val() + "].ProductId' value='" + $('#ProductId').val() + "' />" + $('#ProductId').val() + "</td>" +
+        " <td><input type='hidden' class='txtquantity' name='Products[" + $('#index').val() + "].Quantity' value='" + $('#Quantity').val() + "'/>" + $('#Quantity').val() + "</td>" +
+        " <td><input type='hidden' class='txtrate' name='Products[" + $('#index').val() + "].Rate' value='" + $('#Rate').val() + "'/>" + $('#Rate').val() + "</td>" +
+        " <td><button type='button' class='btn btn-air-warning btn-sm' style = 'border-radius : 30px''>DELETE</button></td></tr>");
 
+    index = parseInt(index) + 1;
+    $('#index').val(index);
+    reindex();
+});
+function reindex() {
+    $('.tblProducts').each(function (index1, index2, index3) {
+        index1 = 0;
+        index2 = 0;
+        index3 = 0;
+
+        $(this).find(".txtname").each(function () {
+            var prefixName = "Products[" + index1 + "].ProductId";
+            this.name = this.name.replace(/Products\[\d+\].ProductId/, prefixName);
+            index1++;
+        });
+        $(this).find(".txtquantity").each(function () {
+            var prefixQuantity = "Products[" + index2 + "].Quantity";
+            this.name = this.name.replace(/Products\[\d+\].Quantity/, prefixQuantity);
+            index2++;
+        });
+        $(this).find(".txtrate").each(function () {
+            var prefixRate = "Products[" + index3 + "].Rate";
+            this.name = this.name.replace(/Products\[\d+\].Rate/, prefixRate);
+            index3++;
+        });
+    });
+}
 
 !function($) {
     "use strict";
@@ -137,3 +177,4 @@ function ($) {
 //    var dataId = $(this).attr("data-id");
 //    location.href = 'Edit/' + dataId;
 //});
+

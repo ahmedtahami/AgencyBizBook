@@ -101,8 +101,8 @@ C:\Users\Ahmed\source\repos\AgencyBizBook\AgencyBizBook\bin\Microsoft.Owin.Secur
 C:\Users\Ahmed\source\repos\AgencyBizBook\AgencyBizBook\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\Ahmed\source\repos\AgencyBizBook\AgencyBizBook\bin\Microsoft.Owin.Security.OAuth.xml
 C:\Users\Ahmed\source\repos\AgencyBizBook\AgencyBizBook\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Ahmed\source\repos\AgencyBizBook\AgencyBizBook\obj\Debug\AgencyBizBook.csprojAssemblyReference.cache
 C:\Users\Ahmed\source\repos\AgencyBizBook\AgencyBizBook\obj\Debug\AgencyBizBook.csproj.CoreCompileInputs.cache
 C:\Users\Ahmed\source\repos\AgencyBizBook\AgencyBizBook\obj\Debug\AgencyBizBook.csproj.CopyComplete
 C:\Users\Ahmed\source\repos\AgencyBizBook\AgencyBizBook\obj\Debug\AgencyBizBook.dll
 C:\Users\Ahmed\source\repos\AgencyBizBook\AgencyBizBook\obj\Debug\AgencyBizBook.pdb
+C:\Users\Ahmed\source\repos\AgencyBizBook\AgencyBizBook\obj\Debug\AgencyBizBook.csproj.AssemblyReference.cache

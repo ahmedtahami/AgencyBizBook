@@ -25,6 +25,8 @@ namespace AgencyBizBook.Entities
         [ForeignKey("CustomerId")]
         public virtual ApplicationUser Customer { get; set; }
         public double TotalWeight { get; set; }
+        public double TotalQuantity { get; set; }
         public double TotalAmount { get; set; }
+        public DateTime Date { get; set; }
     }
 }

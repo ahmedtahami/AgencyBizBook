@@ -1,4 +1,5 @@
-﻿using AgencyBizBook.Models;
+﻿using AgencyBizBook.Entities;
+using AgencyBizBook.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,36 @@ namespace AgencyBizBook.Controllers
         [HttpPost]
         public ActionResult Create(PurchaseCreateViewModel model)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                Purchase purchase = new Purchase();
+                purchase.CokeInvoiceId = model.CokeInvoiceId;
+                purchase.Date = DateTime.Now;
+                purchase.DriverId = model.DriverId;
+                purchase.ShipmentNumber = model.ShipmentNumber;
+
+                foreach (var item in model.Products)
+                {
+                    purchase.TotalQuantity += item.Quantity;
+                    purchase.TotalAmount += item.Rate;
+                    purchase.TotalWeight += ((from p in db.Products where p.Id == item.ProductId select p).FirstOrDefault().NetWeight) * item.Quantity;
+
+                    PurchaseDetail purchaseDetail = new PurchaseDetail()
+                    {
+                        ProductId = item.ProductId,
+                        Quantity = item.Quantity,
+                        Rate = item.Rate,
+                        PurchaseId = purchase.Id
+                    };
+                    db.PurchaseDetails.Add(purchaseDetail);
+                }
+                db.Purchases.Add(purchase);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.DriverId = new SelectList(db.Users.ToList(), model.DriverId);
+            ViewBag.ProductId = new SelectList(db.Products.ToList(), model.ProductId);
+            return View(model);
         }
     }
 }

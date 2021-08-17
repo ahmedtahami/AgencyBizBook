@@ -199,6 +199,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PurchaseViewModel.cs" />
+    <Compile Include="Models\SaleViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -338,7 +339,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Investment\" />
     <Folder Include="Views\Liability\" />
-    <Folder Include="Views\Sale\" />
     <Folder Include="Views\Stock\" />
   </ItemGroup>
   <ItemGroup>
@@ -346,8 +346,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="assets\css\icons.css.map" />
-    <Content Include="assets\css\style.css.map" />
     <Content Include="assets\fonts\fa-brands-400.eot" />
     <Content Include="assets\fonts\fa-brands-400.ttf" />
     <Content Include="assets\fonts\fa-brands-400.woff" />
@@ -370,6 +368,9 @@
     <Content Include="assets\fonts\themify.eot" />
     <Content Include="assets\fonts\themify.ttf" />
     <Content Include="assets\fonts\themify.woff" />
+    <Content Include="assets\datatables\json\scroller-demo.json" />
+    <Content Include="assets\css\icons.css.map" />
+    <Content Include="assets\css\style.css.map" />
     <Content Include="assets\icons\_fontawesome.scss" />
     <Content Include="assets\icons\_materialdesignicons.scss" />
     <Content Include="assets\icons\_outline.scss" />
@@ -409,7 +410,6 @@
     <Content Include="assets\scss\_variables.scss" />
     <Content Include="assets\scss\_waves.scss" />
     <Content Include="assets\scss\_widgets.scss" />
-    <Content Include="assets\datatables\json\scroller-demo.json" />
     <None Include="packages.config" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\ExpenseCategory\Index.cshtml" />
@@ -419,6 +419,9 @@
     <Content Include="Views\Payment\AddExpense.cshtml" />
     <Content Include="Views\Purchase\Index.cshtml" />
     <Content Include="Views\Purchase\Create.cshtml" />
+    <Content Include="Views\Sale\Index.cshtml" />
+    <Content Include="Views\Sale\Create.cshtml" />
+    <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
