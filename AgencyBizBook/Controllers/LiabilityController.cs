@@ -1,4 +1,5 @@
-﻿using AgencyBizBook.Models;
+﻿using AgencyBizBook.Entities;
+using AgencyBizBook.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,20 @@ namespace AgencyBizBook.Controllers
         {
             var modelList = db.Labilities.ToList();
             return View(modelList);
+        }
+        public ActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Create(Liability liability)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Labilities.Add(liability);
+                db.SaveChanges();
+            }
+            return View(liability);
         }
     }
 }

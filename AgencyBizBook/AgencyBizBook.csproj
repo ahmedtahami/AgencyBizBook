@@ -179,7 +179,7 @@
     <Compile Include="Controllers\StockController.cs" />
     <Compile Include="Entities\ExpenseCategory.cs" />
     <Compile Include="Entities\Investment.cs" />
-    <Compile Include="Entities\Lability.cs" />
+    <Compile Include="Entities\Liability.cs" />
     <Compile Include="Entities\LabilityStock.cs" />
     <Compile Include="Entities\LabilityStockOut.cs" />
     <Compile Include="Entities\Payment.cs" />
@@ -424,6 +424,8 @@
     <Content Include="Views\Investment\Edit.cshtml" />
     <Content Include="Views\Liability\Index.cshtml" />
     <Content Include="Views\Stock\Index.cshtml" />
+    <Content Include="Views\Liability\Create.cshtml" />
+    <Content Include="Views\Payment\Expenses.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

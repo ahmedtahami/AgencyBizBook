@@ -11,4 +11,10 @@ namespace AgencyBizBook.Models
         public int ExpenseCategoryId  { get; set; }
         public string Description  { get; set; }
     }
+    public class ExpenseIndexViewModel
+    {
+        public double Amount { get; set; }
+        public string Description { get; set; }
+        public DateTime Date { get; set; }
+    }
 }

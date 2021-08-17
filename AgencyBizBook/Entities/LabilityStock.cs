@@ -13,6 +13,6 @@ namespace AgencyBizBook.Entities
         public DateTime Date { get; set; }
         public int LabilityId { get; set; }
         [ForeignKey("LabilityId")]
-        public virtual Lability Lability { get; set; }
+        public virtual Liability Lability { get; set; }
     }
 }

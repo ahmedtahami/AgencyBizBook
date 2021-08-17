@@ -17,6 +17,18 @@ namespace AgencyBizBook.Controllers
             var modelList = db.Payments.ToList();
             return View(modelList);
         }
+        public ActionResult Expenses()
+        {
+            var modelList = (from expense in db.Payments
+                            where expense.Type == "Expense"
+                            select new ExpenseIndexViewModel()
+                            {
+                                Amount = expense.Debit,
+                                Date = expense.Date,
+                                Description = expense.Description
+                            }).ToList();
+            return View(modelList);
+        }
         public ActionResult AddExpense()
         {
             ViewBag.ExpenseCategoryId = new SelectList(db.ExpenseCategories.ToList(), "Id", "Name");

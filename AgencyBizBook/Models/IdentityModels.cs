@@ -21,9 +21,9 @@ namespace AgencyBizBook.Models
         public string CNIC { get; set; }
         public string Address { get; set; }
         [NotMapped]
-        public string Name { 
-            get { return Name; }
-            set { Name = FirstName + " " + LastName; }
+        public string Name {
+            get { return FirstName + " " + LastName; }   // get method
+            set { } // set method
         }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -54,7 +54,7 @@ namespace AgencyBizBook.Models
         public DbSet<ExpenseCategory> ExpenseCategories { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Investment> Investments { get; set; }
-        public DbSet<Lability> Labilities { get; set; }
+        public DbSet<Liability> Labilities { get; set; }
         public DbSet<LabilityStock> LabilityStocks { get; set; }
         public DbSet<LabilityStockOut> LabilityStockOut { get; set; }
         public DbSet<Purchase> Purchases { get; set; }
