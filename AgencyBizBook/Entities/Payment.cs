@@ -21,5 +21,14 @@ namespace AgencyBizBook.Entities
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
+        public int? SaleId { get; set; }
+        [ForeignKey("SaleId")]
+        public virtual Sale Sale { get; set; }
+        public int? PurchaseId { get; set; }
+        [ForeignKey("PurchaseId")]
+        public virtual Purchase Purchase { get; set; }
+        public int? LiabilityStockId { get; set; }
+        [ForeignKey("LiabilityStockId")]
+        public virtual LiabilityStock LiabilityStock { get; set; }
     }
 }

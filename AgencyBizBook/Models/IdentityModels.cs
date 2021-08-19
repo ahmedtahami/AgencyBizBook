@@ -54,9 +54,9 @@ namespace AgencyBizBook.Models
         public DbSet<ExpenseCategory> ExpenseCategories { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Investment> Investments { get; set; }
-        public DbSet<Liability> Labilities { get; set; }
-        public DbSet<LabilityStock> LabilityStocks { get; set; }
-        public DbSet<LabilityStockOut> LabilityStockOut { get; set; }
+        public DbSet<Liability> Liabilities { get; set; }
+        public DbSet<LiabilityStock> LiabilityStocks { get; set; }
+        public DbSet<LiabilityTransaction> LiabilityTransactions { get; set; }
         public DbSet<Purchase> Purchases { get; set; }
         public DbSet<PurchaseDetail> PurchaseDetails { get; set; }
     }

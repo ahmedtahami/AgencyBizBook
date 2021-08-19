@@ -180,8 +180,8 @@
     <Compile Include="Entities\ExpenseCategory.cs" />
     <Compile Include="Entities\Investment.cs" />
     <Compile Include="Entities\Liability.cs" />
-    <Compile Include="Entities\LabilityStock.cs" />
-    <Compile Include="Entities\LabilityStockOut.cs" />
+    <Compile Include="Entities\LiabilityStock.cs" />
+    <Compile Include="Entities\LiabilityTransaction.cs" />
     <Compile Include="Entities\Payment.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\Purchase.cs" />
@@ -195,6 +195,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DashboardIndexViewModel.cs" />
     <Compile Include="Models\ExpenseViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -426,6 +427,8 @@
     <Content Include="Views\Stock\Index.cshtml" />
     <Content Include="Views\Liability\Create.cshtml" />
     <Content Include="Views\Payment\Expenses.cshtml" />
+    <Content Include="Views\Liability\StockIn.cshtml" />
+    <Content Include="Views\Liability\StockOut.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

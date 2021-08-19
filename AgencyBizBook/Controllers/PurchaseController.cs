@@ -74,13 +74,23 @@ namespace AgencyBizBook.Controllers
                 db.Purchases.Add(purchase);
                 Payment payment = new Payment()
                 {
-                    Credit = 0,
+                    Credit = purchase.TotalAmount,
+                    Debit = 0,
                     Date = DateTime.Now,
-                    Debit = purchase.TotalAmount,
-                    Type = "Purchase",
+                    Type = "Supplier",
                     Description = "Purchase",
+                    PurchaseId = purchase.Id
+                };
+                Payment payment1 = new Payment()
+                {
+                    Credit = 0,
+                    Debit = purchase.TotalAmount,
+                    Date = DateTime.Now,
+                    Type = "Supplier",
+                    Description = "Purchase Payment",
                 };
                 db.Payments.Add(payment);
+                db.Payments.Add(payment1);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

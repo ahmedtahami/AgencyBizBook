@@ -70,13 +70,23 @@ namespace AgencyBizBook.Controllers
                 db.Sales.Add(sale);
                 Payment payment = new Payment()
                 {
+                    Credit = 0,
+                    Date = DateTime.Now,
+                    Debit = sale.TotalAmount,
+                    Type = "Customer",
+                    Description = "Sale",
+                    SaleId = sale.Id
+                };
+                Payment payment1 = new Payment()
+                {
+                    Credit = sale.TotalAmount,
                     Debit = 0,
                     Date = DateTime.Now,
-                    Credit = sale.TotalAmount,
-                    Type = "Sale",
-                    Description = "Sale",
+                    Type = "Customer",
+                    Description = "Sale Payment",
                 };
                 db.Payments.Add(payment);
+                db.Payments.Add(payment1);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

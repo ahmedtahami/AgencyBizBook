@@ -14,7 +14,7 @@ namespace AgencyBizBook.Controllers
         // GET: Liability
         public ActionResult Index()
         {
-            var modelList = db.Labilities.ToList();
+            var modelList = db.LiabilityStocks.ToList();
             return View(modelList);
         }
         public ActionResult Create()
@@ -26,10 +26,95 @@ namespace AgencyBizBook.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Labilities.Add(liability);
+                db.Liabilities.Add(liability);
+                LiabilityStock liabilityStock = new LiabilityStock()
+                {
+                    LastUpdated = DateTime.Now,
+                    LiabilityId = liability.Id,
+                    Quantity = 0
+                };
+                db.LiabilityStocks.Add(liabilityStock);
+
+                Payment payment = new Payment()
+                {
+                    Credit = liabilityStock.Quantity * liability.Price,
+                    Debit = 0,
+                    LiabilityStockId = liabilityStock.Id,
+                    Date = DateTime.Now,
+                    Type = "Liability",
+                    Description = liability.Name
+                };
                 db.SaveChanges();
+                return RedirectToAction("Index");
             }
             return View(liability);
+        }
+        public ActionResult StockIn()
+        {
+            ViewBag.LiabilityId = new SelectList(db.Liabilities.ToList(), "Id", "Name");
+            ViewBag.DriverId = new SelectList(db.Users.ToList(), "Id", "Name");
+            return View();
+        }
+        [HttpPost]
+        public ActionResult StockIn(LiabilityTransaction model)
+        {
+            if (ModelState.IsValid)
+            {
+                var liabilityStock = db.LiabilityStocks.Where(p => p.LiabilityId == model.LiabilityId).FirstOrDefault();
+                liabilityStock.Quantity += (int) model.In;
+                liabilityStock.LastUpdated = DateTime.Now;
+                db.Entry(liabilityStock).State = System.Data.Entity.EntityState.Modified;
+                LiabilityTransaction transaction = new LiabilityTransaction()
+                {
+                    Date = DateTime.Now,
+                    DriverId = model.DriverId,
+                    LiabilityId = model.LiabilityId,
+                    In = model.In,
+                    Out = 0
+                };
+                db.LiabilityTransactions.Add(transaction);
+
+                var payment = db.Payments.Where(p => p.LiabilityStockId == liabilityStock.Id).FirstOrDefault();
+                payment.Credit = (double)((model.In) * (model.Liability.Price));
+                payment.Date = DateTime.Now;
+                db.Entry(payment).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.LiabilityId = new SelectList(db.Liabilities.ToList(), model.LiabilityId);
+            ViewBag.DriverId = new SelectList(db.Users.ToList(), model.DriverId);
+            return View(model);
+        }
+        public ActionResult StockOut()
+        {
+            ViewBag.LiabilityId = new SelectList(db.Liabilities.ToList(), "Id", "Name");
+            ViewBag.DriverId = new SelectList(db.Users.ToList(), "Id", "Name");
+            return View();
+        }
+        [HttpPost]
+        public ActionResult StockOut(LiabilityTransaction model)
+        {
+            if (ModelState.IsValid)
+            {
+                var liabilityStock = db.LiabilityStocks.Where(p => p.LiabilityId == model.LiabilityId).FirstOrDefault();
+                liabilityStock.Quantity -= (int)model.Out;
+                liabilityStock.LastUpdated = DateTime.Now;
+                db.Entry(liabilityStock).State = System.Data.Entity.EntityState.Modified;
+                LiabilityTransaction transaction = new LiabilityTransaction()
+                {
+                    Date = DateTime.Now,
+                    DriverId = model.DriverId,
+                    LiabilityId = model.LiabilityId,
+                    In = 0,
+                    Out = model.Out
+                };
+                db.LiabilityTransactions.Add(transaction);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.LiabilityId = new SelectList(db.Liabilities.ToList(), model.LiabilityId);
+            ViewBag.DriverId = new SelectList(db.Users.ToList(), model.DriverId);
+            return View(model);
         }
     }
 }
