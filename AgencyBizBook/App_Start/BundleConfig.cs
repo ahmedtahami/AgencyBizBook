@@ -43,6 +43,7 @@ namespace AgencyBizBook
                       "~/assets/pages/dashboard.init.js",
                       "~/assets/js/app.js"
                 ));
+            BundleTable.EnableOptimizations = false;
         }
     }
 }
