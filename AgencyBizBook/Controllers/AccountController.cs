@@ -9,12 +9,14 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AgencyBizBook.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace AgencyBizBook.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -402,6 +404,64 @@ namespace AgencyBizBook.Controllers
         {
             return View();
         }
+
+        #region CustomActions
+        [AllowAnonymous]
+        public ActionResult CreateEmployee()
+        {
+            return View();
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<ActionResult> CreateEmployee(EmployeeCreateViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var hasher = new PasswordHasher();
+                var user = new ApplicationUser()
+                {
+                    Address = model.Address,
+                    CNIC = model.CNIC,
+                    Email = model.Email,
+                    EmailConfirmed = false,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    PhoneNumber = model.PhoneNumber,
+                    PhoneNumberConfirmed = false,
+                    JoinDate = DateTime.Now,
+                    PasswordHash = hasher.HashPassword(model.FirstName + "@123"),
+                    UserName = model.PhoneNumber
+                };
+                var result = await UserManager.CreateAsync(user);
+                if (result.Succeeded)
+                {
+                    var roleStore = new RoleStore<IdentityRole>(db);
+                    var roleManager = new RoleManager<IdentityRole>(roleStore);
+                    var userStore = new UserStore<ApplicationUser>(db);
+                    var userManager = new UserManager<ApplicationUser>(userStore);
+                    
+                    if (!roleManager.RoleExists(model.EmployeeType.ToString()))
+                    {
+                        var role = new IdentityRole(model.EmployeeType.ToString());
+                        await roleManager.CreateAsync(role);
+                    }
+                    userManager.AddToRole(user.Id, model.EmployeeType.ToString());
+                    return RedirectToAction("Index", "Employee");
+                }
+                else
+                {
+                    string temp = "\0";
+                    foreach (var item in result.Errors)
+                    {
+                        temp = temp + item + "\n";
+                    }
+                    ModelState.AddModelError("", temp);
+                    return View(model);
+                }
+            }
+            return View(model);
+        }
+        #endregion
 
         protected override void Dispose(bool disposing)
         {

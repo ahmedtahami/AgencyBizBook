@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Security.Claims;
@@ -20,6 +21,7 @@ namespace AgencyBizBook.Models
         public string LastName { get; set; }
         public string CNIC { get; set; }
         public string Address { get; set; }
+        public DateTime JoinDate { get; set; }
         [NotMapped]
         public string Name {
             get { return FirstName + " " + LastName; }   // get method
