@@ -11,8 +11,11 @@ namespace AgencyBizBook.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        [Required]
+        [MaxLength(20)]
         public string Name { get; set; }
         public double Price { get; set; }
+        [MaxLength(100)]
         public string Description { get; set; }
     }
 }

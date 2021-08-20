@@ -18,13 +18,21 @@ namespace AgencyBizBook.Models
     }
     public class EmployeeCreateViewModel
     {
+        [Display(Name = "First Name")]
+        [MaxLength(30)]
         public string FirstName { get; set; }
+        [Display(Name = "Last Name")]
+        [MaxLength(30)]
         public string LastName { get; set; }
         [EmailAddress]
         public string Email { get; set; }
+        [MaxLength(20)]
         public string PhoneNumber { get; set; }
+        [MaxLength(30)]
         public string Address { get; set; }
+        [MaxLength(13)]
         public string CNIC { get; set; }
+        [Display(Name = "Employee Type")]
         public EmployeeTypes EmployeeType { get; set; }
     }
     public enum EmployeeTypes

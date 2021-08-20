@@ -15,9 +15,11 @@ namespace AgencyBizBook.Entities
         [Display(Name = "Quantity")]
         public int? Out { get; set; }
         public DateTime Date { get; set; }
+        [Display(Name = "Liability")]
         public int LiabilityId { get; set; }
         [ForeignKey("LiabilityId")]
         public virtual Liability Liability { get; set; }
+        [Display(Name = "Driver")]
         public string DriverId { get; set; }
         [ForeignKey("DriverId")]
         public virtual ApplicationUser Driver { get; set; }

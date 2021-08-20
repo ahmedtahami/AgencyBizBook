@@ -12,9 +12,13 @@ namespace AgencyBizBook.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        [MaxLength(30)]
         public string Name { get; set; }
+        [Display(Name = "Sale Price")]
         public double SalePrice { get; set; }
+        [Display(Name = "Purchase Price")]
         public double PurchasePrice { get; set; }
+        [Display(Name = "Net. Weight (ML)")]
         public double NetWeight { get; set; }
     }
 }

@@ -16,17 +16,23 @@ namespace AgencyBizBook.Entities
         public double Credit { get; set; }
         public double Debit { get; set; }
         public DateTime Date { get; set; }
+        [MaxLength(100)]
         public string Description { get; set; }
+        [MaxLength(20)]
         public string Type { get; set; }
+        [Display(Name = "User")]
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
+        [Display(Name = "Sale")]
         public int? SaleId { get; set; }
         [ForeignKey("SaleId")]
         public virtual Sale Sale { get; set; }
+        [Display(Name = "Purchase")]
         public int? PurchaseId { get; set; }
         [ForeignKey("PurchaseId")]
         public virtual Purchase Purchase { get; set; }
+        [Display(Name = "Liability Stock")]
         public int? LiabilityStockId { get; set; }
         [ForeignKey("LiabilityStockId")]
         public virtual LiabilityStock LiabilityStock { get; set; }

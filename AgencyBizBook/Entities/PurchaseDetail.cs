@@ -12,9 +12,11 @@ namespace AgencyBizBook.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        [Display(Name = "Product")]
         public int ProductId { get; set; }
         [ForeignKey("ProductId")]
         public virtual Product Product { get; set; }
+        [Display(Name = "Purchase")]
         public int PurchaseId { get; set; }
         [ForeignKey("PurchaseId")]
         public virtual Purchase Purchase { get; set; }

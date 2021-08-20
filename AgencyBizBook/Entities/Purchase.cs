@@ -13,12 +13,20 @@ namespace AgencyBizBook.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        [Display(Name = "Coke Invoice")]
+        [MaxLength(50)]
         public string CokeInvoiceId { get; set; }
         public DateTime Date { get; set; }
+        [Display(Name = "Total Weight (ML)")]
         public double TotalWeight { get; set; }
+        [Display(Name = "Total Quantity")]
         public double TotalQuantity { get; set; }
+        [Display(Name = "Total Amount")]
         public double TotalAmount { get; set; }
+        [Display(Name = "Shipment No.")]
+        [MaxLength(50)]
         public string ShipmentNumber { get; set; }
+        [Display(Name = "Driver")]
         public string DriverId { get; set; }
         [ForeignKey("DriverId")]
         public virtual ApplicationUser Driver { get; set; }
