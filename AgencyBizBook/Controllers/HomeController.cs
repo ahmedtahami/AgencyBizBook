@@ -12,33 +12,33 @@ namespace AgencyBizBook.Controllers
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString.ToString();
-        public async Task<ActionResult> Index()
+        private string connString = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString.ToString();
+        public ActionResult Index()
         {
             var model = new DashboardIndexViewModel();
-            //using (SqlConnection connection = new SqlConnection(connectionString))
-            //{
-            //    var query = "select count(p.Id) Products, sum(pay.Credit) Credit, sum(pay.Debit) Debit from Products p, Payments pay";
-            //    using (SqlCommand command = new SqlCommand(query, connection))
-            //    {
-            //        connection.Open();
-            //        using (SqlDataReader reader = command.ExecuteReader())
-            //        {
-            //            if (reader.HasRows)
-            //            {
-            //                while (await reader.ReadAsync())
-            //                {
-            //                    model.TotalCredit = reader.GetDouble(reader.GetOrdinal("Credit"));
-            //                    model.TotalDebit = reader.GetDouble(reader.GetOrdinal("Debit"));
-            //                    model.TotalProducts = reader.GetInt32(reader.GetOrdinal("Products"));
-            //                    model.Balance = model.TotalDebit - model.TotalCredit;
-
-            //                }
-            //                connection.Close();
-            //            }
-            //        }
-            //    }
-            //}
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                string query = @"Select Sum(pay.Credit) Credit, Sum(pay.Debit) Debit 
+                                From Payments pay;
+                                ";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                conn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        model.TotalProducts = db.Products.Count();          
+                        if (!dr.IsDBNull(dr.GetOrdinal("Credit")))
+                            model.TotalCredit = dr.GetDouble(0);
+                        if (!dr.IsDBNull(dr.GetOrdinal("Debit")))
+                            model.TotalDebit = dr.GetDouble(1);
+                        model.Balance = model.TotalDebit - model.TotalCredit;
+                    }
+                }
+                dr.Close();
+                conn.Close();
+            }
             return View(model);
         }
 

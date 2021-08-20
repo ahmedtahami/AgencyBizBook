@@ -3,10 +3,9 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <title>@ViewBag.Title - Agency BizBook</title>
-    <link rel="shortcut icon" href="/assets/images/favicon.ico">
+    <link rel="shortcut icon" href="~/assets/images/favicon.ico">
     @Styles.Render("~/Site/Styles")
 </head>
 
@@ -147,8 +146,8 @@
                         <li>
                             <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-user-friends "></i><span> Employees <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
-                                <li><a href="/Employees/Index">List Employees</a></li>
-                                <li><a href="#">Add New Employee</a></li>
+                                <li><a href="/Employee/Index">List Employees</a></li>
+                                <li><a href="/Account/CreateEmployee">Add New Employee</a></li>
                             </ul>
                         </li>
                     </ul>
