@@ -14,9 +14,20 @@ namespace AgencyBizBook.Controllers
         // GET: Liability
         public ActionResult Index()
         {
+            var modelList = db.Liabilities.ToList();
+            return View(modelList);
+        }
+        public ActionResult LiabilityStock()
+        {
             var modelList = db.LiabilityStocks.ToList();
             return View(modelList);
         }
+        public ActionResult LiabilityTransactions()
+        {
+            var modelList = db.LiabilityTransactions.ToList();
+            return View(modelList);
+        }
+
         public ActionResult Create()
         {
             return View();
@@ -40,7 +51,8 @@ namespace AgencyBizBook.Controllers
                     Credit = liabilityStock.Quantity * liability.Price,
                     Debit = 0,
                     LiabilityStockId = liabilityStock.Id,
-                    Date = DateTime.Now,
+                    EntryDate = DateTime.Now,
+                    LastUpdated = DateTime.Now,
                     Type = "Liability",
                     Description = liability.Name
                 };
@@ -76,10 +88,11 @@ namespace AgencyBizBook.Controllers
 
                 var payment = db.Payments.Where(p => p.LiabilityStockId == liabilityStock.Id).FirstOrDefault();
                 payment.Credit = (double)((model.In) * (model.Liability.Price));
-                payment.Date = DateTime.Now;
+                payment.EntryDate = DateTime.Now;
+                payment.LastUpdated = DateTime.Now;
                 db.Entry(payment).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("LiabilityStock");
             }
             ViewBag.LiabilityId = new SelectList(db.Liabilities.ToList(), model.LiabilityId);
             ViewBag.DriverId = new SelectList(db.Users.ToList(), model.DriverId);
@@ -110,7 +123,7 @@ namespace AgencyBizBook.Controllers
                 };
                 db.LiabilityTransactions.Add(transaction);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("LiabilityStock");
             }
             ViewBag.LiabilityId = new SelectList(db.Liabilities.ToList(), model.LiabilityId);
             ViewBag.DriverId = new SelectList(db.Users.ToList(), model.DriverId);

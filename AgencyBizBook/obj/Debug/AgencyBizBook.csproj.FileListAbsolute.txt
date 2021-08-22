@@ -105,4 +105,3 @@ C:\Users\Ahmed\source\repos\AgencyBizBook\AgencyBizBook\obj\Debug\AgencyBizBook.
 C:\Users\Ahmed\source\repos\AgencyBizBook\AgencyBizBook\obj\Debug\AgencyBizBook.csproj.CopyComplete
 C:\Users\Ahmed\source\repos\AgencyBizBook\AgencyBizBook\obj\Debug\AgencyBizBook.dll
 C:\Users\Ahmed\source\repos\AgencyBizBook\AgencyBizBook\obj\Debug\AgencyBizBook.pdb
-C:\Users\Ahmed\source\repos\AgencyBizBook\AgencyBizBook\obj\Debug\AgencyBizBook.csproj.AssemblyReference.cache

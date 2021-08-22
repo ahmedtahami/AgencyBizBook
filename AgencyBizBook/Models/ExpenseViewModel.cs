@@ -19,6 +19,9 @@ namespace AgencyBizBook.Models
         public double Amount { get; set; }
         [MaxLength(50)]
         public string Description { get; set; }
-        public DateTime Date { get; set; }
+        [Display(Name = "Entry Date")]
+        public DateTime EntryDate { get; set; }
+        [Display(Name = "Last Updated")]
+        public DateTime LastUpdated { get; set; }
     }
 }

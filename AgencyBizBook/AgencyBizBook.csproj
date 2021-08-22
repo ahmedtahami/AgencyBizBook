@@ -412,7 +412,6 @@
     <Content Include="assets\scss\_pages.scss" />
     <None Include="packages.config" />
     <Content Include="Views\Product\Index.cshtml" />
-    <Content Include="Views\ExpenseCategory\Index.cshtml" />
     <Content Include="Views\Product\Create.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Payment\Index.cshtml" />
@@ -425,7 +424,7 @@
     <Content Include="Views\Investment\Index.cshtml" />
     <Content Include="Views\Investment\Create.cshtml" />
     <Content Include="Views\Investment\Edit.cshtml" />
-    <Content Include="Views\Liability\Index.cshtml" />
+    <Content Include="Views\Liability\LiabilityStock.cshtml" />
     <Content Include="Views\Stock\Index.cshtml" />
     <Content Include="Views\Liability\Create.cshtml" />
     <Content Include="Views\Payment\Expenses.cshtml" />
@@ -433,6 +432,10 @@
     <Content Include="Views\Liability\StockOut.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\Account\CreateEmployee.cshtml" />
+    <Content Include="Views\Payment\AddExpenseCategory.cshtml" />
+    <Content Include="Views\Payment\ExpenseCategories.cshtml" />
+    <Content Include="Views\Liability\Index.cshtml" />
+    <Content Include="Views\Liability\LiabilityTransactions.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

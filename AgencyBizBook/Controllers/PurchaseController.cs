@@ -2,6 +2,7 @@
 using AgencyBizBook.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,9 +13,22 @@ namespace AgencyBizBook.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Purchase
-        public ActionResult Index()
+        public ActionResult Index(bool currentMonth = false, bool today = false)
         {
-            var modelList = db.Purchases.ToList();
+            var modelList = new List<Purchase>();
+            if (currentMonth)
+            {
+                modelList = db.Purchases.Where(p => p.Date.Month == DateTime.Now.Month).ToList();
+            }
+            else if (today)
+            {
+                modelList = db.Purchases.ToList();
+            }
+            else
+            {
+                modelList = db.Purchases.ToList();
+            }
+            
             return View(modelList);
         }
         public ActionResult Create()
@@ -38,7 +52,7 @@ namespace AgencyBizBook.Controllers
                 {
                     var productWeight = ((from p in db.Products where p.Id == item.ProductId select p).FirstOrDefault().NetWeight) * item.Quantity;
                     purchase.TotalQuantity += item.Quantity;
-                    purchase.TotalAmount += item.Rate;
+                    purchase.TotalAmount += (item.Rate * item.Quantity);
                     purchase.TotalWeight += productWeight;
 
                     PurchaseDetail purchaseDetail = new PurchaseDetail()
@@ -76,7 +90,8 @@ namespace AgencyBizBook.Controllers
                 {
                     Credit = purchase.TotalAmount,
                     Debit = 0,
-                    Date = DateTime.Now,
+                    EntryDate = DateTime.Now,
+                    LastUpdated = DateTime.Now,
                     Type = "Supplier",
                     Description = "Purchase",
                     PurchaseId = purchase.Id
@@ -85,7 +100,8 @@ namespace AgencyBizBook.Controllers
                 {
                     Credit = 0,
                     Debit = purchase.TotalAmount,
-                    Date = DateTime.Now,
+                    EntryDate = DateTime.Now,
+                    LastUpdated = DateTime.Now,
                     Type = "Supplier",
                     Description = "Purchase Payment",
                 };

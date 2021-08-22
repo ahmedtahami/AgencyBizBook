@@ -89,65 +89,96 @@
                         <li>
                             <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-box"></i><span> Products <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
-                                <li><a href="/Product/Index">List Products</a></li>
-                                <li><a href="/Product/Create">Add New Product</a></li>
+                                <li><a href="/Product/Create">New Product</a></li>
+                                <li><a href="/Product/Index">View Products</a></li>
                             </ul>
                         </li>
                         <li>
                             <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-cart-arrow-down"></i><span> Purchases <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
-                                <li><a href="/Purchase/Index">List Purchases</a></li>
-                                <li><a href="/Purchase/Create">Add New Purchase</a></li>
+                                <li><a href="/Purchase/Create">New Purchase</a></li>
+                                <li>@Html.ActionLink("Todays Purchases", "Index", "Purchase", new { today = true }, null)</li>
+                                <li>@Html.ActionLink("Current Month Purchases", "Index", "Purchase", new { currentMonth = true }, null)</li>
+                                <li><a href="/Purchase/Index">View Purchases</a></li>
                             </ul>
                         </li>
                         <li>
                             <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-cart-plus"></i><span> Sales <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
-                                <li><a href="/Sale/Index">List Sales</a></li>
-                                <li><a href="/Sale/Create">Add New Sale</a></li>
+                                <li><a href="/Sale/Create">New Sale</a></li>
+                                <li>@Html.ActionLink("Todays Sales", "Index", "Sale", new { today = true }, null)</li>
+                                <li>@Html.ActionLink("Current Month Sales", "Index", "Sale", new { currentMonth = true }, null)</li>
+                                <li><a href="/Sale/Index">View Sales</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-boxes"></i><span> Stocks  <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-boxes"></i><span> Stock  <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
-                                <li><a href="/Stock/Index">List Stocks</a></li>
-                                <li><a href="#">Product Stock In</a></li>
-                                <li><a href="#">Product Stock Out</a></li>
+                                <li><a href="/Stock/Index">Current Stock</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-dolly"></i><span> Liabilities <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-dolly"></i><span> Stock History<span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
-                                <li><a href="/Liability/Index">List Liabilities</a></li>
-                                <li><a href="/Liability/StockIn">Liability Stock In</a></li>
-                                <li><a href="/Liability/StockOut">Liability Stock Out</a></li>
+                                <li><a href="#">Driver Stock Log</a></li>
+                                <li><a href="#">Driver Stock Transaction</a></li>
                             </ul>
                         </li>
                         <li>
                             <a href="javascript:void(0);" class="waves-effect"><i class="far fa-credit-card"></i><span> Payments <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
-                                <li><a href="/Payment/Index">List Payments</a></li>
+                                <li><a href="/Payment/Index">View Payments</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-file-invoice-dollar"></i><span> Expenses Category<span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                            <ul class="submenu">
+                                <li><a href="/Payment/AddExpenseCategory">New Category</a></li>
+                                <li><a href="/Payment/ExpenseCategories">View Categories</a></li>
                             </ul>
                         </li>
                         <li>
                             <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-file-invoice-dollar"></i><span> Expenses <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
-                                <li><a href="/Payment/Expenses">List Expenses</a></li>
-                                <li><a href="/Payment/AddExpense">Add New Expense</a></li>
+                                <li><a href="/Payment/AddExpense">New Expense</a></li>
+                                <li>@Html.ActionLink("Todays Expense", "Expenses", "Payment", new { today = true }, null)</li>
+                                <li>@Html.ActionLink("Monthly Expenses", "Expenses", "Payment", new { currentMonth = true }, null)</li>
+                                <li><a href="/Payment/Expenses">View Expenses</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-dolly"></i><span> Liabilities <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                            <ul class="submenu">
+                                <li><a href="/Liability/Create">New Liability</a></li>
+                                <li><a href="/Liability/Index">View Liabilities</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-dolly"></i><span> Liabilities Stock <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                            <ul class="submenu">
+                                <li><a href="/Liability/LiabilityStock">View Liabilities Stock</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-dolly"></i><span> Liability Transactions <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                            <ul class="submenu">
+                                <li><a href="/Liability/LiabilityTransactions">View Transactions</a></li>
                             </ul>
                         </li>
                         <li>
                             <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-dollar-sign"></i><span> Investments <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
-                                <li><a href="/Investment/Index">List Investments</a></li>
-                                <li><a href="/Investment/Index">Add New Investment</a></li>
+                                <li><a href="/Investment/Index">New Investment</a></li>
+                                <li><a href="/Investment/Index">View Investments</a></li>
                             </ul>
                         </li>
                         <li>
                             <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-user-friends "></i><span> Employees <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
-                                <li><a href="/Employee/Index">List Employees</a></li>
-                                <li><a href="/Account/CreateEmployee">Add New Employee</a></li>
+                                <li><a href="/Account/CreateEmployee">New Employee</a></li>
+                                <li>@Html.ActionLink("View Drivers", "Index", "Employee", new { drivers = true }, null)</li>
+                                <li>@Html.ActionLink("View Salesman", "Index", "Employee", new { salesMen = true }, null)</li>
+                                <li>@Html.ActionLink("View Accountants", "Index", "Employee", new { accountants = true }, null)</li>
                             </ul>
                         </li>
                     </ul>

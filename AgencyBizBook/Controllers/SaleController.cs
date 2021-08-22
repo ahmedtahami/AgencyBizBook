@@ -2,6 +2,7 @@
 using AgencyBizBook.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,9 +13,22 @@ namespace AgencyBizBook.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Sale
-        public ActionResult Index()
+        public ActionResult Index(bool currentMonth = false, bool today = false)
         {
-            var modelList = db.Sales.ToList();
+            var modelList = new List<Sale>();
+            if (currentMonth)
+            {
+                modelList = db.Sales.Where(p => p.Date.Month == DateTime.Now.Month).ToList();
+            }
+            else if (today)
+            {
+                modelList = db.Sales.ToList();
+            }
+            else
+            {
+                modelList = db.Sales.ToList();
+            }
+
             return View(modelList);
         }
         public ActionResult Create()
@@ -49,7 +63,7 @@ namespace AgencyBizBook.Controllers
                 {
                     var productWeight = ((from p in db.Products where p.Id == item.ProductId select p).FirstOrDefault().NetWeight) * item.Quantity;
                     sale.TotalQuantity += item.Quantity;
-                    sale.TotalAmount += item.Rate;
+                    sale.TotalAmount += (item.Rate * item.Quantity);
                     sale.TotalWeight += productWeight;
 
                     SaleDetail saleDetail = new SaleDetail()
@@ -71,7 +85,8 @@ namespace AgencyBizBook.Controllers
                 Payment payment = new Payment()
                 {
                     Credit = 0,
-                    Date = DateTime.Now,
+                    EntryDate = DateTime.Now,
+                    LastUpdated = DateTime.Now,
                     Debit = sale.TotalAmount,
                     Type = "Customer",
                     Description = "Sale",
@@ -81,7 +96,8 @@ namespace AgencyBizBook.Controllers
                 {
                     Credit = sale.TotalAmount,
                     Debit = 0,
-                    Date = DateTime.Now,
+                    EntryDate = DateTime.Now,
+                    LastUpdated = DateTime.Now,
                     Type = "Customer",
                     Description = "Sale Payment",
                 };
