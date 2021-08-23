@@ -1,9 +1,33 @@
-/*
- Template Name: Stexo - Responsive Bootstrap 4 Admin Dashboard
- Author: Themesdesign
- Website: www.themesdesign.in
- File: Main js
- */
+
+var stock = 0;
+
+$('#ProductId').change(function () {
+    var id = $("#ProductId").val();
+    $.ajax({
+        url: '/Sale/GetProductInfo/' + id,
+        dataType: 'Json',
+        type: 'GET',
+        success: function (data) {
+            stock = data.ProductStock;
+            document.getElementById('AvailableStock').value = stock;
+            if (stock == 0) {
+                alert("Stock Not Available");
+            }
+        },
+        error: function (err) {
+            document.getElementById('AvailableStock').value = 0;
+        }
+    });
+});
+
+$('#Quantity').blur(function () {
+    var qty = $('#Quantity').val();
+
+    if (stock < qty) {
+        alert("Available Stock is : " + stock);
+    }
+
+});
 
 function showModalDetail(clickevent) {
     var url = $('#myModal').attr("data-url");
@@ -11,6 +35,33 @@ function showModalDetail(clickevent) {
         $("#myModal").html(data);
         $("#myModal").modal('show');
     }).fail(function () { alert("Error!") });
+}
+
+
+function AddToCartValidator() {
+    var qty = $('#Quantity').val();
+    var productId = $('#ProductId').val();
+    var rate = $('#Rate').val();
+
+    if (productId == 0 || qty == 0 || rate == 0) {
+        alert("Invalid Entry");
+        return false;
+    }
+    if (productId == 0) {
+        
+    }
+
+    if (qty == 0) {
+        alert("Please Enter Quantity");
+        return false;
+    }
+
+    if (rate == 0) {
+        alert("Please Enter a Valid Rate");
+        return false;
+    }
+
+    return true;
 }
 
 $(document).on('click', 'button.btn-air-warning', function () {
@@ -21,15 +72,23 @@ $(document).on('click', 'button.btn-air-warning', function () {
 $('#addRow').on('click', function () {
     var t = $('.tblProducts');
     var index = $('#index').val();
+    var qty = $('#Quantity').val();
+    var result = AddToCartValidator();
     
-    t.append("<tr> <td><input type='hidden' class='txtname' name='Products[" + $('#index').val() + "].ProductId' value='" + $('#ProductId').val() + "' />" + $('#ProductId').val() + "</td>" +
-        " <td><input type='hidden' class='txtquantity' name='Products[" + $('#index').val() + "].Quantity' value='" + $('#Quantity').val() + "'/>" + $('#Quantity').val() + "</td>" +
-        " <td><input type='hidden' class='txtrate' name='Products[" + $('#index').val() + "].Rate' value='" + $('#Rate').val() + "'/>" + $('#Rate').val() + "</td>" +
-        " <td><button type='button' class='btn btn-air-warning btn-sm' style = 'border-radius : 30px''>DELETE</button></td></tr>");
+    if (stock < qty) {
+        alert("Available Stock is : " + stock);
+    }
+    else if(result)
+    {
+        t.append("<tr> <td><input type='hidden' class='txtname' name='Products[" + $('#index').val() + "].ProductId' value='" + $('#ProductId').val() + "' />" + $('#ProductId').val() + "</td>" +
+            " <td><input type='hidden' class='txtquantity' name='Products[" + $('#index').val() + "].Quantity' value='" + $('#Quantity').val() + "'/>" + $('#Quantity').val() + "</td>" +
+            " <td><input type='hidden' class='txtrate' name='Products[" + $('#index').val() + "].Rate' value='" + $('#Rate').val() + "'/>" + $('#Rate').val() + "</td>" +
+            " <td><button type='button' class='btn btn-air-warning btn-sm' style = 'border-radius : 30px''>DELETE</button></td></tr>");
 
-    index = parseInt(index) + 1;
-    $('#index').val(index);
-    reindex();
+        index = parseInt(index) + 1;
+        $('#index').val(index);
+        reindex();
+    }
 });
 function reindex() {
     $('.tblProducts').each(function (index1, index2, index3) {

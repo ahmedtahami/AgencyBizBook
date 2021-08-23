@@ -110,5 +110,11 @@ namespace AgencyBizBook.Controllers
             ViewBag.CustomerId = new SelectList(db.Users.ToList(), model.CustomerId);
             return View(model);
         }
+        public JsonResult GetProductInfo(int id)
+        {
+            var availableStock = db.Stocks.Where(p => p.ProductId == id).FirstOrDefault().Quantity;
+
+            return Json(new { ProductStock = availableStock }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

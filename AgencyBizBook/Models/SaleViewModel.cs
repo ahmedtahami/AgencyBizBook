@@ -19,6 +19,8 @@ namespace AgencyBizBook.Models
         [Display(Name = "Product")]
         public int ProductId { get; set; }
         public int Quantity { get; set; }
+        [Display(Name = "Available Stock")]
+        public int AvailableStock { get; set; }
         public double Rate { get; set; }
     }
     public class ProductSaleCreateViewModel
