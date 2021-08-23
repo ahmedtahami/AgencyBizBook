@@ -26,7 +26,8 @@
                 <div class="card m-b-30">
                     <div class="card-body">
                         <div class="col-md-12">
-                            <a href="#" class="btn btn-outline-primary" style="margin-bottom:1em" onclick="location.href='@Url.Action("Create")'">Create New Stock</a>
+                            <button type="button" onclick="showModalDetail(this);" class="btn btn-success" style="margin-bottom:1em">Stock-In</button>
+                            <a href="#" class="btn btn-danger" style="margin-bottom:1em">Stock-Out</a>
                         </div>
                         <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
@@ -66,3 +67,4 @@
     <!-- container-fluid -->
 </div>
 <!-- content -->
+<div class="modal bs-example-modal" id="myModal" data-url="@Url.Action("StockIn", "Stock")" tabindex="-1" role="dialog"></div>

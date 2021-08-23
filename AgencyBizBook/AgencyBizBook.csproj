@@ -203,6 +203,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PurchaseViewModel.cs" />
     <Compile Include="Models\SaleViewModel.cs" />
+    <Compile Include="Models\StockViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -436,6 +437,7 @@
     <Content Include="Views\Payment\ExpenseCategories.cshtml" />
     <Content Include="Views\Liability\Index.cshtml" />
     <Content Include="Views\Liability\LiabilityTransactions.cshtml" />
+    <Content Include="Views\Stock\StockIn.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

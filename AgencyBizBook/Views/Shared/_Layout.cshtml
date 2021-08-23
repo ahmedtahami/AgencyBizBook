@@ -127,7 +127,10 @@
                         <li>
                             <a href="javascript:void(0);" class="waves-effect"><i class="far fa-credit-card"></i><span> Payments <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
-                                <li><a href="/Payment/Index">View Payments</a></li>
+                                <li><a href="/Payment/Index">View Balance Sheet</a></li>
+                                <li>@Html.ActionLink("Customer Ledger", "Index", "Payment", new { customerLedger = true }, null)</li>
+                                <li>@Html.ActionLink("Supplier Ledger", "Index", "Payment", new { supplierLedger = true }, null)</li>
+                                <li>@Html.ActionLink("Employee Ledger", "Index", "Payment", new { employeeLedger = true }, null)</li>
                             </ul>
                         </li>
                         <li>

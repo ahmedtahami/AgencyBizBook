@@ -4,6 +4,15 @@
  Website: www.themesdesign.in
  File: Main js
  */
+
+function showModalDetail(clickevent) {
+    var url = $('#myModal').attr("data-url");
+    $.get(url, function (data) {
+        $("#myModal").html(data);
+        $("#myModal").modal('show');
+    }).fail(function () { alert("Error!") });
+}
+
 $(document).on('click', 'button.btn-air-warning', function () {
     $(this).closest('tr').remove();
     reindex();

@@ -16,5 +16,10 @@ namespace AgencyBizBook.Controllers
             var modelList = db.Stocks.ToList();
             return View(modelList);
         }
+        public ActionResult StockIn()
+        {
+            ViewBag.ProductId = new SelectList(db.Products.ToList(), "Id", "Name");
+            return PartialView();
+        }
     }
 }

@@ -1,0 +1,73 @@
+﻿@model IEnumerable<AgencyBizBook.Entities.LiabilityTransaction>
+@{
+    ViewBag.Title = "Liability Transactions";
+}
+
+<!-- Start content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="page-title-box">
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <h4 class="page-title">Liability Transactions</h4>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-right">
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">BizBook</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Liabilities</a></li>
+                        <li class="breadcrumb-item active">Transactions</li>
+                    </ol>
+                </div>
+            </div> <!-- end row -->
+        </div>
+        <!-- end page-title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card m-b-30">
+                    <div class="card-body">
+                        <div class="col-md-12">
+                            @Html.ActionLink("Stock-In", "StockIn", "Liability", new { @class = "btn btn-success", @style = "margin-bottom:1em" })
+                            @Html.ActionLink("Stock-Out", "StockOut", "Liability", new { @class = "btn btn-danger", @style = "margin-bottom:1em" })
+                        </div>
+                        <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>Sr. No.</th>
+                                    <th>@Html.DisplayNameFor(model => model.Driver)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Liability)</th>
+                                    <th>In</th>
+                                    <th>Out</th>
+                                    <th>@Html.DisplayNameFor(model => model.Date)</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{var index = 1;}
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@index</td>
+                                        <th>@Html.DisplayFor(model => item.Driver.Name)</th>
+                                        <th>@Html.DisplayFor(model => item.Liability.Name)</th>
+                                        <th>@Html.DisplayFor(model => item.In)</th>
+                                        <th>@Html.DisplayFor(model => item.Out)</th>
+                                        <th>@Html.DisplayFor(model => item.Date)</th>
+                                        <td>
+                                            <div>
+                                                <a href="#" class="mdi mdi-circle-edit-outline mdi-18px" onclick="location.href='@Url.Action("Edit")/@item.Id'"></a>&nbsp;
+                                                <a href="#" class="mdi mdi-delete mdi-18px"></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    index++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div>
+    <!-- container-fluid -->
+</div>
+<!-- content -->

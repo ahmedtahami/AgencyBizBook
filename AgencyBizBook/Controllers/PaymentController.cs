@@ -14,9 +14,25 @@ namespace AgencyBizBook.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Payment
-        public ActionResult Index()
+        public ActionResult Index(bool customerLedger = false, bool supplierLedger = false, bool employeeLedger = false)
         {
-            var modelList = db.Payments.ToList();
+            var modelList = new List<Payment>();
+            if (customerLedger)
+            {
+                modelList = (from payments in db.Payments where payments.Type == "Customer" select payments).ToList();
+            }
+            else if (supplierLedger)
+            {
+                modelList = (from payments in db.Payments where payments.Type == "Supplier" select payments).ToList();
+            }
+            else if (employeeLedger)
+            {
+                modelList = (from payments in db.Payments where payments.Type == "Employee" select payments).ToList();
+            }
+            else
+            {
+                modelList = (from payments in db.Payments select payments).ToList();
+            }
             return View(modelList);
         }
         public ActionResult Expenses(bool currentMonth = false, bool today = false)
