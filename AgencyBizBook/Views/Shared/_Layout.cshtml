@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <title>@ViewBag.Title - Agency BizBook</title>
+    <title>@ViewBag.Title - BizBook</title>
     <link rel="shortcut icon" href="~/assets/images/favicon.ico">
     @Styles.Render("~/Site/Styles")
 </head>
@@ -120,8 +120,8 @@
                         <li>
                             <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-dolly"></i><span> Stock History<span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
-                                <li><a href="#">Driver Stock Log</a></li>
-                                <li><a href="#">Driver Stock Transaction</a></li>
+                                <li><a href="/Stock/DriverStockLog">Driver Stock Log</a></li>
+                                <li><a href="#" onclick="showStockOutModal(this);">Driver Stock Transaction</a></li>
                             </ul>
                         </li>
                         <li>
@@ -211,6 +211,7 @@
         <!-- ============================================================== -->
 
     </div>
+    <div class="modal bd-example-modal-lg" id="myModal1" data-request-url="@Url.Action("DriverStockOut","Stock")" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"></div>
     <!-- END wrapper -->
     @Scripts.Render("~/Site/Scripts")
     @RenderSection("scripts", required: false)

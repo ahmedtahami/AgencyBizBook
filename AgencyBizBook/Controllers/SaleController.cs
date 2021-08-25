@@ -22,7 +22,7 @@ namespace AgencyBizBook.Controllers
             }
             else if (today)
             {
-                modelList = db.Sales.ToList();
+                modelList = db.Sales.Where(p => p.Date == DateTime.Now.Date).ToList();
             }
             else
             {
@@ -34,9 +34,6 @@ namespace AgencyBizBook.Controllers
         public ActionResult Create()
         {
             var products = (from p in db.Products
-                            join s in db.Stocks
-                            on p.Id equals s.ProductId
-                            where s.Quantity > 0
                             select p).ToList();
             ViewBag.DriverId = new SelectList(db.Users.ToList(), "Id", "Name");
             ViewBag.CustomerId = new SelectList(db.Users.ToList(), "Id", "Name");

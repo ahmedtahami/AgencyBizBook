@@ -438,6 +438,9 @@
     <Content Include="Views\Liability\Index.cshtml" />
     <Content Include="Views\Liability\LiabilityTransactions.cshtml" />
     <Content Include="Views\Stock\StockIn.cshtml" />
+    <Content Include="Views\Stock\StockOut.cshtml" />
+    <Content Include="Views\Stock\DriverStockLog.cshtml" />
+    <Content Include="Views\Stock\DriverStockOut.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

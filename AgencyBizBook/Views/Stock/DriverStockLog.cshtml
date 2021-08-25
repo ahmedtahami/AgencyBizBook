@@ -1,0 +1,67 @@
+﻿@model IEnumerable<AgencyBizBook.Entities.StockOut>
+@{
+    ViewBag.Title = "Driver Stock Log";
+}
+
+<!-- Start content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="page-title-box">
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <h4 class="page-title">Stocks</h4>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-right">
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">BizBook</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Stocks</a></li>
+                        <li class="breadcrumb-item active">Driver Stock Log</li>
+                    </ol>
+                </div>
+            </div> <!-- end row -->
+        </div>
+        <!-- end page-title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card m-b-30">
+                    <div class="card-body">
+                        <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>@Html.DisplayNameFor(model => model.Product)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Driver)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Quantity)</th>
+                                    <th>@Html.DisplayNameFor(model => model.TotalWeight)</th>
+                                    <th>@Html.DisplayNameFor(model => model.LastUpdated)</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(model => item.Product.Name)</td>
+                                            <td>@Html.DisplayFor(model => item.Driver.Name)</td>
+                                            <td>@Html.DisplayFor(model => item.Quantity)</td>
+                                            <td>@Html.DisplayFor(model => item.TotalWeight)</td>
+                                            <td>@Html.DisplayFor(model => item.LastUpdated)</td>
+                                            <td>
+                                                <div>
+                                                    <a href="#" class="mdi mdi-circle-edit-outline mdi-18px" onclick="location.href='@Url.Action("Edit")/@item.Id'"></a>&nbsp;
+                                                    <a href="#" class="mdi mdi-delete mdi-18px"></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div>
+    <!-- container-fluid -->
+</div>
+<!-- content -->

@@ -4,7 +4,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title mt-0">Stock-In</h5>
+                <h5 class="modal-title mt-0">Product Stock-In</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -12,14 +12,14 @@
             <div class="modal-body">
                 <div class="form-group row">
                     <div class="checkbox checkbox-primary col-xl-10 col-md-8">
-                        <label for="Status">Change Status</label>
+                        @Html.LabelFor(model => model.ProductId)
                         @Html.DropDownList("ProductId", null, "Select Product", htmlAttributes: new { @class = "form-control", @required = "required" })
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="checkbox checkbox-primary col-xl-10 col-md-8">
-                        <label for="Status">Select Week Day</label>
-                        @Html.EnumDropDownListFor(model => model.Quantity, null, new { @class = "form-control" })
+                        @Html.LabelFor(model => model.Quantity)
+                        @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", @placeholder = "Quantity", @required = "required", @min = "0" } })
                     </div>
                 </div>
             </div>
