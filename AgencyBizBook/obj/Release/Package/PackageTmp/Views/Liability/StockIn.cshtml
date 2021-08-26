@@ -1,68 +1,42 @@
 ﻿@model AgencyBizBook.Entities.LiabilityTransaction
-@{
-    ViewBag.Title = "Liability Stock-In";
-}
-
-<!-- Start content -->
-<div class="content">
-    <div class="container-fluid">
-        <div class="page-title-box">
-            <div class="row align-items-center">
-                <div class="col-sm-6">
-                    <h4 class="page-title">Liabilities</h4>
+@using (Html.BeginForm())
+{
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0">Liability Stock-In Transaction</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @Html.ValidationSummary(false)
+                <div class="form-group row">
+                    <div class="checkbox checkbox-primary col-xl-10 col-md-8">
+                        @Html.LabelFor(model => model.LiabilityId)
+                        @Html.DropDownList("LiabilityId", null, "Select Liability", htmlAttributes: new { @class = "form-control", @required = "required" })
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-right">
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">BizBook</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Liabilities</a></li>
-                        <li class="breadcrumb-item active">Stock-In</li>
-                    </ol>
+                <div class="form-group row">
+                    <div class="checkbox checkbox-primary col-xl-10 col-md-8">
+                        @Html.LabelFor(model => model.DriverId)
+                        @Html.DropDownList("DriverId", null, "Select Driver", htmlAttributes: new { @class = "form-control", @required = "required" })
+                    </div>
                 </div>
-            </div> <!-- end row -->
-        </div>
-        <!-- end page-title -->
-        <div class="row">
-            <div class="col-12">
-                <div class="card m-b-30">
-                    <div class="card-body">
-                        @using (Html.BeginForm())
-                        {
-                            <div class="row">
-                                <div class="col-lg-6 form-group">
-                                    @Html.LabelFor(model => model.LiabilityId)
-                                    @Html.DropDownList("LiabilityId", null, "Select Liability", htmlAttributes: new { @class = "form-control", @required = "required" })
-                                    @Html.ValidationMessageFor(model => model.LiabilityId, "", new { @class = "text-danger" })
-                                </div>
-                                <div class="col-lg-6 form-group">
-                                    @Html.LabelFor(model => model.DriverId)
-                                    @Html.DropDownList("DriverId", null, "Select Driver", htmlAttributes: new { @class = "form-control", @required = "required" })
-                                    @Html.ValidationMessageFor(model => model.DriverId, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.In)
-                                @Html.EditorFor(model => model.In, new { htmlAttributes = new { @class = "form-control", @placeholder = "Quantity", @min = "0", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.In, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                <div>
-                                    <button type="submit" class="btn btn-primary waves-effect waves-light">
-                                        Submit
-                                    </button>
-                                    <button type="reset" class="btn btn-secondary waves-effect m-l-5">
-                                        Reset
-                                    </button>
-                                    <button type="button" onclick="location.href='@Url.Action("Index")'" class="btn btn-success waves-effect m-l-5">
-                                        Back
-                                    </button>
-                                </div>
-                            </div>
-                        }
+                <div class="form-group row">
+                    <div class="checkbox checkbox-primary col-xl-10 col-md-8">
+                        @Html.LabelFor(model => model.In)
+                        @Html.EditorFor(model => model.In, new { htmlAttributes = new { @class = "form-control", @placeholder = "Quantity", @required = "required", @min = "0" } })
                     </div>
                 </div>
             </div>
-            <!-- container-fluid -->
-        </div>
-    </div>
-</div>
-<!-- content -->
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="reset" class="btn btn-primary">Reset</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+}
+
+

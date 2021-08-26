@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace AgencyBizBook.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class PaymentController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -117,7 +118,7 @@ namespace AgencyBizBook.Controllers
         }
         public ActionResult AddExpenseCategory()
         {
-            return View();
+            return PartialView();
         }
         [HttpPost]
         public ActionResult AddExpenseCategory(ExpenseCategory model)
@@ -128,7 +129,7 @@ namespace AgencyBizBook.Controllers
                 db.SaveChanges();
                 return RedirectToAction("ExpenseCategories");
             }
-            return View(model);
+            return PartialView(model);
         }
     }
 }

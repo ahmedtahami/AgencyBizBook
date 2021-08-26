@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace AgencyBizBook.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class InvestmentController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

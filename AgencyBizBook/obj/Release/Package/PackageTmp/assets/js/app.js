@@ -1,39 +1,51 @@
 
 var stock = 0;
 
-$('#ProductId').change(function () {
-    var id = $("#ProductId").val();
-    $.ajax({
-        url: '/Sale/GetProductInfo/' + id,
-        dataType: 'Json',
-        type: 'GET',
-        success: function (data) {
-            stock = data.ProductStock;
-            document.getElementById('AvailableStock').value = stock;
-            if (stock == 0) {
-                alert("Stock Not Available");
-            }
-        },
-        error: function (err) {
-            document.getElementById('AvailableStock').value = 0;
-        }
-    });
-});
+function showDefaultModal(clickevent) {
+    var url = $('#dModal').attr("data-request-url");
+    $.get(url, function (data) {
+        $("#dModal").html(data);
+        $("#dModal").modal('show');
+    }).fail(function () { alert("Error!") });
+}
 
-$('#Quantity').blur(function () {
-    var qty = $('#Quantity').val();
-
-    if (stock < qty) {
-        alert("Available Stock is : " + stock);
-    }
-
-});
-
-function showModalDetail(clickevent) {
-    var url = $('#myModal').attr("data-url");
+function showStockInModal(clickevent) {
+    var url = $('#myModal').attr("data-request-url");
     $.get(url, function (data) {
         $("#myModal").html(data);
         $("#myModal").modal('show');
+    }).fail(function () { alert("Error!") });
+}
+
+function showStockOutModal(clickevent) {
+    var url = $('#myModal1').attr("data-request-url");
+    $.get(url, function (data) {
+        $("#myModal1").html(data);
+        $("#myModal1").modal('show');
+    }).fail(function () { alert("Error!") });
+}
+
+function showDriverStockOutModal(clickevent) {
+    var url = $('#myModal2').attr("data-request-url");
+    $.get(url, function (data) {
+        $("#myModal2").html(data);
+        $("#myModal2").modal('show');
+    }).fail(function () { alert("Error!") });
+}
+
+function showLiabilityStockInModal(clickevent) {
+    var url = $('#myModal3').attr("data-request-url");
+    $.get(url, function (data) {
+        $("#myModal3").html(data);
+        $("#myModal3").modal('show');
+    }).fail(function () { alert("Error!") });
+}
+
+function showLiabilityStockOutModal(clickevent) {
+    var url = $('#myModal4').attr("data-request-url");
+    $.get(url, function (data) {
+        $("#myModal4").html(data);
+        $("#myModal4").modal('show');
     }).fail(function () { alert("Error!") });
 }
 
@@ -47,22 +59,63 @@ function AddToCartValidator() {
         alert("Invalid Entry");
         return false;
     }
-    if (productId == 0) {
-        
-    }
 
-    if (qty == 0) {
-        alert("Please Enter Quantity");
-        return false;
-    }
-
-    if (rate == 0) {
-        alert("Please Enter a Valid Rate");
-        return false;
+    if (qty > stock && window.location.href.includes("Sale")) {
+        alert("Available Stock is : " + stock);
+        $('#Quantity').focus();
     }
 
     return true;
 }
+
+if (window.location.href.includes("Sale")) {
+    $('#ProductId').change(function () {
+        var id = $("#ProductId").val();
+        $.ajax({
+            url: '/Sale/GetProductInfo/' + id,
+            dataType: 'Json',
+            type: 'GET',
+            success: function (data) {
+                stock = data.ProductStock;
+                document.getElementById('AvailableStock').value = stock;
+                if (stock == 0) {
+                    alert("Stock Not Available");
+                }
+            },
+            error: function (err) {
+                document.getElementById('AvailableStock').value = 0;
+            }
+        });
+    });
+
+    $('#Quantity').blur(function () {
+        var qty = $('#Quantity').val();
+
+        window.location.href.includes("Sale")
+        if (stock < qty && window.location.href.includes("Sale")) {
+            alert("Available Stock is : " + stock);
+            $('#Quantity').filter(":first").focus();
+        }
+
+    });
+}
+
+
+$(function () {
+
+    $.ajaxSetup({ cache: false });
+
+    $("#modalBtn").on("click", function (e) {
+        $('#loginmodel').load(this.href, function () {
+            $('#myModal').modal({
+            }, 'show');
+        });
+        return false;
+    });
+});
+
+
+
 
 $(document).on('click', 'button.btn-air-warning', function () {
     $(this).closest('tr').remove();
@@ -72,15 +125,11 @@ $(document).on('click', 'button.btn-air-warning', function () {
 $('#addRow').on('click', function () {
     var t = $('.tblProducts');
     var index = $('#index').val();
-    var qty = $('#Quantity').val();
     var result = AddToCartValidator();
-    
-    if (stock < qty) {
-        alert("Available Stock is : " + stock);
-    }
-    else if(result)
+
+    if(result)
     {
-        t.append("<tr> <td><input type='hidden' class='txtname' name='Products[" + $('#index').val() + "].ProductId' value='" + $('#ProductId').val() + "' />" + $('#ProductId').val() + "</td>" +
+        t.append("<tr> <td><input type='hidden' class='txtname' name='Products[" + $('#index').val() + "].ProductId' value='" + $('#ProductId').val() + "' />" + $('#ProductId option:selected').text() + "</td>" +
             " <td><input type='hidden' class='txtquantity' name='Products[" + $('#index').val() + "].Quantity' value='" + $('#Quantity').val() + "'/>" + $('#Quantity').val() + "</td>" +
             " <td><input type='hidden' class='txtrate' name='Products[" + $('#index').val() + "].Rate' value='" + $('#Rate').val() + "'/>" + $('#Rate').val() + "</td>" +
             " <td><button type='button' class='btn btn-air-warning btn-sm' style = 'border-radius : 30px''>DELETE</button></td></tr>");

@@ -1,6 +1,14 @@
 
 var stock = 0;
 
+function showDefaultModal(clickevent) {
+    var url = $('#dModal').attr("data-request-url");
+    $.get(url, function (data) {
+        $("#dModal").html(data);
+        $("#dModal").modal('show');
+    }).fail(function () { alert("Error!") });
+}
+
 function showStockInModal(clickevent) {
     var url = $('#myModal').attr("data-request-url");
     $.get(url, function (data) {
@@ -14,6 +22,30 @@ function showStockOutModal(clickevent) {
     $.get(url, function (data) {
         $("#myModal1").html(data);
         $("#myModal1").modal('show');
+    }).fail(function () { alert("Error!") });
+}
+
+function showDriverStockOutModal(clickevent) {
+    var url = $('#myModal2').attr("data-request-url");
+    $.get(url, function (data) {
+        $("#myModal2").html(data);
+        $("#myModal2").modal('show');
+    }).fail(function () { alert("Error!") });
+}
+
+function showLiabilityStockInModal(clickevent) {
+    var url = $('#myModal3').attr("data-request-url");
+    $.get(url, function (data) {
+        $("#myModal3").html(data);
+        $("#myModal3").modal('show');
+    }).fail(function () { alert("Error!") });
+}
+
+function showLiabilityStockOutModal(clickevent) {
+    var url = $('#myModal4').attr("data-request-url");
+    $.get(url, function (data) {
+        $("#myModal4").html(data);
+        $("#myModal4").modal('show');
     }).fail(function () { alert("Error!") });
 }
 

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace AgencyBizBook.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class LiabilityController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -65,7 +66,7 @@ namespace AgencyBizBook.Controllers
         {
             ViewBag.LiabilityId = new SelectList(db.Liabilities.ToList(), "Id", "Name");
             ViewBag.DriverId = new SelectList(db.Users.ToList(), "Id", "Name");
-            return View();
+            return PartialView();
         }
         [HttpPost]
         public ActionResult StockIn(LiabilityTransaction model)
@@ -96,13 +97,13 @@ namespace AgencyBizBook.Controllers
             }
             ViewBag.LiabilityId = new SelectList(db.Liabilities.ToList(), model.LiabilityId);
             ViewBag.DriverId = new SelectList(db.Users.ToList(), model.DriverId);
-            return View(model);
+            return PartialView(model);
         }
         public ActionResult StockOut()
         {
             ViewBag.LiabilityId = new SelectList(db.Liabilities.ToList(), "Id", "Name");
             ViewBag.DriverId = new SelectList(db.Users.ToList(), "Id", "Name");
-            return View();
+            return PartialView();
         }
         [HttpPost]
         public ActionResult StockOut(LiabilityTransaction model)
@@ -127,7 +128,7 @@ namespace AgencyBizBook.Controllers
             }
             ViewBag.LiabilityId = new SelectList(db.Liabilities.ToList(), model.LiabilityId);
             ViewBag.DriverId = new SelectList(db.Users.ToList(), model.DriverId);
-            return View(model);
+            return PartialView(model);
         }
     }
 }

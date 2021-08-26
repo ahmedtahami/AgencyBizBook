@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace AgencyBizBook.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class EmployeeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -83,7 +84,5 @@ namespace AgencyBizBook.Controllers
             }
             return View(modelList);
         }
-
-
     }
 }

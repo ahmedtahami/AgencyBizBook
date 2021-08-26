@@ -1,0 +1,42 @@
+﻿@model AgencyBizBook.Entities.StockOut
+@using (Html.BeginForm())
+{
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0">Driver Stock-Out Transaction</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @Html.ValidationSummary(false)
+                <div class="form-group row">
+                    <div class="checkbox checkbox-primary col-xl-10 col-md-8">
+                        @Html.LabelFor(model => model.ProductId)
+                        @Html.DropDownList("ProductId", null, "Select Product", htmlAttributes: new { @class = "form-control", @required = "required" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="checkbox checkbox-primary col-xl-10 col-md-8">
+                        @Html.LabelFor(model => model.DriverId)
+                        @Html.DropDownList("DriverId", null, "Select Driver", htmlAttributes: new { @class = "form-control", @required = "required" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="checkbox checkbox-primary col-xl-10 col-md-8">
+                        @Html.LabelFor(model => model.Quantity)
+                        @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", @placeholder = "Quantity", @required = "required", @min = "0" } })
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="reset" class="btn btn-primary">Reset</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+}
+
+

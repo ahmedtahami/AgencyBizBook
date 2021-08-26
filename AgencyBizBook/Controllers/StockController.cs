@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace AgencyBizBook.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class StockController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -75,6 +76,7 @@ namespace AgencyBizBook.Controllers
         public ActionResult DriverStockOut()
         {
             ViewBag.ProductId = new SelectList(db.Products.ToList(), "Id", "Name");
+            ViewBag.DriverId = new SelectList(db.Users.ToList(), "Id", "Name");
             return PartialView();
         }
         [HttpPost]
@@ -109,7 +111,7 @@ namespace AgencyBizBook.Controllers
                 }
             }
             ViewBag.ProductId = new SelectList(db.Products.ToList(), model.ProductId);
-            ViewBag.DriverId = new SelectList(db.Products.ToList(), model.DriverId);
+            ViewBag.DriverId = new SelectList(db.Users.ToList(), model.DriverId);
             return PartialView(model);
         }
     }

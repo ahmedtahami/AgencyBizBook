@@ -21,7 +21,7 @@
             <div class="topbar-left">
                 <a href="/Home/Index" class="logo">
                     <span class="logo-light">
-                        <i class="mdi mdi-camera-control"></i> Agency BizBook
+                        <i class="mdi mdi-camera-control"></i> BizBook
                     </span>
                     <span class="logo-sm">
                         <i class="mdi mdi-camera-control"></i>
@@ -31,32 +31,16 @@
 
             <nav class="navbar-custom">
                 <ul class="navbar-right list-inline float-right mb-0">
-                    <!-- full screen -->
                     <li class="dropdown notification-list list-inline-item d-none d-md-inline-block">
-                        <a class="nav-link waves-effect" href="#" id="btn-fullscreen">
-                            <i class="mdi mdi-arrow-expand-all noti-icon"></i>
+                        <a class="nav-link waves-effect" href="javascript:document.getElementById('logoutForm').submit()">
+                            @HttpContext.Current.User.Identity.Name&nbsp;
+                            <i class=" fas fa-power-off fa-1x text-danger"></i>
                         </a>
+                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                        {
+                            @Html.AntiForgeryToken()
+                        }
                     </li>
-
-                    <!-- notification -->
-
-                    <li class="dropdown notification-list list-inline-item">
-                        <div class="dropdown notification-list nav-pro-img">
-                            <a class="dropdown-toggle nav-link arrow-none nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                <img src="assets/images/users/user-4.jpg" alt="user" class="rounded-circle">
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
-                                <!-- item-->
-                                <a class="dropdown-item" href="#"><i class="mdi mdi-account-circle"></i> Profile</a>
-                                <a class="dropdown-item" href="#"><i class="mdi mdi-wallet"></i> Wallet</a>
-                                <a class="dropdown-item d-block" href="#"><span class="badge badge-success float-right">11</span><i class="mdi mdi-settings"></i> Settings</a>
-                                <a class="dropdown-item" href="#"><i class="mdi mdi-lock-open-outline"></i> Lock screen</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-danger" href="#"><i class="mdi mdi-power text-danger"></i> Logout</a>
-                            </div>
-                        </div>
-                    </li>
-
                 </ul>
 
                 <ul class="list-inline menu-left mb-0">
@@ -121,7 +105,7 @@
                             <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-dolly"></i><span> Stock History<span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
                                 <li><a href="/Stock/DriverStockLog">Driver Stock Log</a></li>
-                                <li><a href="#" onclick="showStockOutModal(this);">Driver Stock Transaction</a></li>
+                                <li><a href="#" onclick="showDriverStockOutModal(this);">Driver Stock Transaction</a></li>
                             </ul>
                         </li>
                         <li>
@@ -136,7 +120,7 @@
                         <li>
                             <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-file-invoice-dollar"></i><span> Expenses Category<span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
-                                <li><a href="/Payment/AddExpenseCategory">New Category</a></li>
+                                <li><a href="#" onclick="showDefaultModal(this);">New Category</a></li>
                                 <li><a href="/Payment/ExpenseCategories">View Categories</a></li>
                             </ul>
                         </li>
@@ -171,7 +155,7 @@
                         <li>
                             <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-dollar-sign"></i><span> Investments <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
-                                <li><a href="/Investment/Index">New Investment</a></li>
+                                <li><a href="/Investment/Create">New Investment</a></li>
                                 <li><a href="/Investment/Index">View Investments</a></li>
                             </ul>
                         </li>
@@ -211,7 +195,8 @@
         <!-- ============================================================== -->
 
     </div>
-    <div class="modal bd-example-modal-lg" id="myModal1" data-request-url="@Url.Action("DriverStockOut","Stock")" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"></div>
+    <div class="modal bd-example-modal-lg" id="myModal2" data-request-url="@Url.Action("DriverStockOut","Stock")" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"></div>
+    <div class="modal bd-example-modal-lg" id="dModal" data-request-url="@Url.Action("AddExpenseCategory","Payment")" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"></div>
     <!-- END wrapper -->
     @Scripts.Render("~/Site/Scripts")
     @RenderSection("scripts", required: false)

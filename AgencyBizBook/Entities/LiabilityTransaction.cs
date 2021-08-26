@@ -10,9 +10,9 @@ namespace AgencyBizBook.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [Display(Name = "Quantity")]
+        [Display(Name = "Quantity (In)")]
         public int? In { get; set; }
-        [Display(Name = "Quantity")]
+        [Display(Name = "Quantity (Out)")]
         public int? Out { get; set; }
         public DateTime Date { get; set; }
         [Display(Name = "Liability")]
