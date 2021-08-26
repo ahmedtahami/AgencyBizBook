@@ -18,7 +18,7 @@ namespace AgencyBizBook.Controllers
         public ActionResult Index(bool drivers = false, bool salesMen = false, bool accountants = false)
         {
             string query = "\0";
-            var modelList = new List<EmployeeIndexViewModel>();
+            var modelList = new List<UsersIndexViewModel>();
             if (drivers)
             {
                 query = @"SELECT u.Id, u.FirstName, u.LastName, u.Address, u.CNIC,
@@ -56,7 +56,6 @@ namespace AgencyBizBook.Controllers
                                 where r.Name != 'Admin';
                                 ";
             }
-            
             using (SqlConnection conn = new SqlConnection(connString))
             {
                 SqlCommand cmd = new SqlCommand(query, conn);
@@ -66,8 +65,8 @@ namespace AgencyBizBook.Controllers
                 {
                     while (dr.Read())
                     {
-                        var model = new EmployeeIndexViewModel();
-                        model.EmployeeId = dr.GetString(0);
+                        var model = new UsersIndexViewModel();
+                        model.UserId = dr.GetString(0);
                         model.Name = dr.GetString(1) + " " + dr.GetString(2);
                         if (!dr.IsDBNull(dr.GetOrdinal("Address")))
                             model.Address = dr.GetString(3);

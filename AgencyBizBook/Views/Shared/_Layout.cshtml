@@ -160,9 +160,12 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-user-friends "></i><span> Employees <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-user-friends "></i><span> Manage Users <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
-                                <li><a href="/Account/CreateEmployee">New Employee</a></li>
+                                <li>@Html.ActionLink("New Employee", "CreateEmployee", "Account")</li>
+                                <li>@Html.ActionLink("New Customer", "CreateCustomer", "Account")</li>
+                                <li>@Html.ActionLink("View Customers", "Customers", "Account")</li>
+                                <li>@Html.ActionLink("View Employees", "Index", "Employee")</li>
                                 <li>@Html.ActionLink("View Drivers", "Index", "Employee", new { drivers = true }, null)</li>
                                 <li>@Html.ActionLink("View Salesman", "Index", "Employee", new { salesMen = true }, null)</li>
                                 <li>@Html.ActionLink("View Accountants", "Index", "Employee", new { accountants = true }, null)</li>
@@ -186,7 +189,7 @@
 
             @RenderBody()
             <footer class="footer">
-                © @DateTime.Now.Year BizBook <span class="d-none d-sm-inline-block"> - Developed By <a href="https://www.codembeded.com/" target="_blank">Codembeded</a></span>.
+                © @DateTime.Now.Year BizBook <span class="d-none d-sm-inline-block"> - Developed By <a href="http://www.codembeded.com/" target="_blank">Codembeded</a></span>.
             </footer>
 
         </div>

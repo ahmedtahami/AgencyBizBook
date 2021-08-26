@@ -131,5 +131,14 @@ namespace AgencyBizBook.Controllers
             }
             return PartialView(model);
         }
+        public ActionResult CashIn()
+        {
+            //user-liabiltyStock
+            return PartialView();
+        }
+        public ActionResult CashOut()
+        {
+            return PartialView();
+        }
     }
 }

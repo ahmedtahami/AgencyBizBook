@@ -10,12 +10,15 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AgencyBizBook.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace AgencyBizBook.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        private string connString = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString.ToString();
         private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -447,6 +450,98 @@ namespace AgencyBizBook.Controllers
                     }
                     userManager.AddToRole(user.Id, model.EmployeeType.ToString());
                     return RedirectToAction("Index", "Employee");
+                }
+                else
+                {
+                    string temp = "\0";
+                    foreach (var item in result.Errors)
+                    {
+                        temp = temp + item + "\n";
+                    }
+                    ModelState.AddModelError("", temp);
+                    return View(model);
+                }
+            }
+            return View(model);
+        }
+        [Authorize(Roles = "Admin")]
+        public ActionResult Customers()
+        {
+            var modelList = new List<UsersIndexViewModel>();
+            var query = @"SELECT u.Id, u.FirstName, u.LastName, u.Address, u.CNIC,
+                                u.JoinDate, u.PhoneNumber, r.Name
+                                FROM AspNetUsers u 
+                                join AspNetUserRoles ur on u.id = ur.UserId
+                                join AspNetRoles r on ur.RoleId = r.Id 
+                                where r.Name == 'Customer';";
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+                conn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        var model = new UsersIndexViewModel();
+                        model.UserId = dr.GetString(0);
+                        model.Name = dr.GetString(1) + " " + dr.GetString(2);
+                        if (!dr.IsDBNull(dr.GetOrdinal("Address")))
+                            model.Address = dr.GetString(3);
+                        if (!dr.IsDBNull(dr.GetOrdinal("CNIC")))
+                            model.CNIC = dr.GetString(4);
+                        model.JoinDate = dr.GetDateTime(5);
+                        model.PhoneNumber = dr.GetString(6);
+                        model.Role = dr.GetString(7);
+                        modelList.Add(model);
+                    }
+                }
+                dr.Close();
+                conn.Close();
+            }
+            return View();
+        }
+        [Authorize(Roles = "Admin")]
+        public ActionResult CreateCustomer()
+        {
+            return View();
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public async Task<ActionResult> CreateCustomer(CustomerCreateViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var hasher = new PasswordHasher();
+                var user = new ApplicationUser()
+                {
+                    Address = model.Address,
+                    CNIC = model.CNIC,
+                    Email = model.Email,
+                    EmailConfirmed = false,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    PhoneNumber = model.PhoneNumber,
+                    PhoneNumberConfirmed = false,
+                    JoinDate = DateTime.Now,
+                    PasswordHash = hasher.HashPassword(model.FirstName + "@123"),
+                    UserName = model.PhoneNumber
+                };
+                var result = await UserManager.CreateAsync(user);
+                if (result.Succeeded)
+                {
+                    var roleStore = new RoleStore<IdentityRole>(db);
+                    var roleManager = new RoleManager<IdentityRole>(roleStore);
+                    var userStore = new UserStore<ApplicationUser>(db);
+                    var userManager = new UserManager<ApplicationUser>(userStore);
+
+                    if (!roleManager.RoleExists("Customer"))
+                    {
+                        var role = new IdentityRole("Customer");
+                        await roleManager.CreateAsync(role);
+                    }
+                    userManager.AddToRole(user.Id, "Customer");
+                    return RedirectToAction("Index", "Customers");
                 }
                 else
                 {

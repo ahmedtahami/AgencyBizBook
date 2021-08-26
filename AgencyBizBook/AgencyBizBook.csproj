@@ -441,6 +441,8 @@
     <Content Include="Views\Stock\StockOut.cshtml" />
     <Content Include="Views\Stock\DriverStockLog.cshtml" />
     <Content Include="Views\Stock\DriverStockOut.cshtml" />
+    <Content Include="Views\Account\CreateCustomer.cshtml" />
+    <Content Include="Views\Account\Customers.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

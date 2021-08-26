@@ -29,24 +29,24 @@
                         <h4 class="mt-0 header-title">Add Product</h4>
                         <input name="index" id="index" type='hidden' value="0" />
                         <div class="row">
-                            <div class="col-lg-4 form-group">
+                            <div class="col-lg-3 form-group">
                                 @Html.LabelFor(model => model.ProductId)
                                 @Html.DropDownList("ProductId", null, "Select Product", htmlAttributes: new { @class = "form-control", @required = "required" })
                                 @Html.ValidationMessageFor(model => model.ProductId, "", new { @class = "text-danger" })
                             </div>
-                            <div class="col-lg-4 form-group">
+                            <div class="col-lg-3 form-group">
                                 @Html.LabelFor(model => model.Quantity)
                                 @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", @placeholder = "Quantity", @min = "0" } })
                                 @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
                             </div>
 
-                            <div class="col-lg-4 form-group">
+                            <div class="col-lg-3 form-group">
                                 @Html.LabelFor(model => model.AvailableStock)
                                 @*@Html.EditorFor(model => model.AvailableStock, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })*@
                                 <input class = "form-control" type="number" id="AvailableStock" name="name" value="0" readonly/>
                             </div>
 
-                            <div class="col-lg-4 form-group">
+                            <div class="col-lg-3 form-group">
                                 @Html.LabelFor(model => model.Rate)
                                 @Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @placeholder = "Rate" } })
                                 @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
@@ -56,6 +56,9 @@
                             <div>
                                 <button type="submit" id="addRow" class="btn btn-primary waves-effect waves-light">
                                     Add To Cart <span class="mdi mdi-cart-plus "></span>
+                                </button>
+                                <button type="reset" class="btn btn-secondary waves-effect m-l-5">
+                                    Reset
                                 </button>
                             </div>
                         </div>

@@ -6,9 +6,9 @@ using System.Web;
 
 namespace AgencyBizBook.Models
 {
-    public class EmployeeIndexViewModel
+    public class UsersIndexViewModel
     {
-        public string EmployeeId { get; set; }
+        public string UserId { get; set; }
         public string Name { get; set; }
         public string Role { get; set; }
         public string PhoneNumber { get; set; }
@@ -34,6 +34,23 @@ namespace AgencyBizBook.Models
         public string CNIC { get; set; }
         [Display(Name = "Employee Type")]
         public EmployeeTypes EmployeeType { get; set; }
+    }
+    public class CustomerCreateViewModel
+    {
+        [Display(Name = "First Name")]
+        [MaxLength(30)]
+        public string FirstName { get; set; }
+        [Display(Name = "Last Name")]
+        [MaxLength(30)]
+        public string LastName { get; set; }
+        [EmailAddress]
+        public string Email { get; set; }
+        [MaxLength(20)]
+        public string PhoneNumber { get; set; }
+        [MaxLength(30)]
+        public string Address { get; set; }
+        [MaxLength(13)]
+        public string CNIC { get; set; }
     }
     public enum EmployeeTypes
     {
