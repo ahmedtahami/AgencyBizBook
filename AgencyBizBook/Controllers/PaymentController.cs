@@ -14,6 +14,7 @@ namespace AgencyBizBook.Controllers
     public class PaymentController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
         // GET: Payment
         public ActionResult Index(bool customerLedger = false, bool supplierLedger = false, bool employeeLedger = false)
         {
@@ -135,6 +136,7 @@ namespace AgencyBizBook.Controllers
         {
             ViewBag.RoleId = new SelectList(db.Roles.ToList(), "Id", "Name");
             ViewBag.UserId = new SelectList(db.Users.ToList(), "Id", "Name");
+            ViewBag.Type = new SelectList(CashTranactionViewModel.types, "Name", "Name");
             return PartialView();
         }
         [HttpPost]
@@ -157,12 +159,14 @@ namespace AgencyBizBook.Controllers
             }
             ViewBag.RoleId = new SelectList(db.Roles.ToList(), "Id", "Name", model.RoleId);
             ViewBag.UserId = new SelectList(db.Users.ToList(), "Id", "Name", model.UserId);
+            ViewBag.Type = new SelectList(CashTranactionViewModel.types, "Name", "Name", model.Type);
             return PartialView(model);
         }
         public ActionResult CashOut()
         {
             ViewBag.RoleId = new SelectList(db.Roles.ToList(), "Id", "Name");
             ViewBag.UserId = new SelectList(db.Users.ToList(), "Id", "Name");
+            ViewBag.Type = new SelectList(CashTranactionViewModel.types, "Name", "Name");
             return PartialView();
         }
         [HttpPost]
@@ -185,6 +189,7 @@ namespace AgencyBizBook.Controllers
             }
             ViewBag.RoleId = new SelectList(db.Roles.ToList(), "Id", "Name", model.RoleId);
             ViewBag.UserId = new SelectList(db.Users.ToList(), "Id", "Name", model.UserId);
+            ViewBag.Type = new SelectList(CashTranactionViewModel.types, "Name", "Name", model.Type);
             return PartialView(model);
         }
         public JsonResult GetUsers(string Id)

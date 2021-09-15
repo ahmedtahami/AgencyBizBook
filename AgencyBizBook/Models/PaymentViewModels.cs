@@ -8,11 +8,11 @@ namespace AgencyBizBook.Models
 {
     public class ExpenseCreateViewModel
     {
-        public double Amount  { get; set; }
+        public double Amount { get; set; }
         [Display(Name = "Expense Category")]
-        public int ExpenseCategoryId  { get; set; }
+        public int ExpenseCategoryId { get; set; }
         [MaxLength(50)]
-        public string Description  { get; set; }
+        public string Description { get; set; }
     }
     public class ExpenseIndexViewModel
     {
@@ -35,5 +35,20 @@ namespace AgencyBizBook.Models
         public string Description { get; set; }
         [MaxLength(20)]
         public string Type { get; set; }
+        public static List<Models.Type> types = new List<Models.Type>()
+        {
+                new Models.Type(){Name = "Sale Payment"},
+                new Models.Type(){Name = "Sale Customer Payment"},
+                new Models.Type(){Name = "Purchase Payment"},
+                new Models.Type(){Name = "Purchase Customer Payment"},
+                new Models.Type(){Name = "Expenses"},
+                new Models.Type(){Name = "Supplier Payment"},
+                new Models.Type(){Name = "Miscellaneous"},
+        };
     }
+    public class Type
+    {
+        public string Name { get; set; }
+    }
+
 }
