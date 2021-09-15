@@ -64,7 +64,6 @@ namespace AgencyBizBook.Controllers
                         PurchaseId = purchase.Id
                     };
                     db.PurchaseDetails.Add(purchaseDetail);
-
                     var productStock = db.Stocks.Where(p => p.ProductId == item.ProductId).FirstOrDefault();
                     if (productStock == null)
                     {
@@ -84,7 +83,6 @@ namespace AgencyBizBook.Controllers
                         productStock.TotalWeight += productWeight;
                         db.Entry(productStock).State = System.Data.Entity.EntityState.Modified;
                     }
-                    
                 }
                 db.Purchases.Add(purchase);
                 Payment payment = new Payment()

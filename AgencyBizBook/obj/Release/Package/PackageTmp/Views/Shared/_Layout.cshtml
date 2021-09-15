@@ -99,11 +99,6 @@
                             <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-boxes"></i><span> Stock  <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
                                 <li>@Html.ActionLink("Current Stock", "Index", "Stock")</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-clock"></i><span> Stock History<span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
-                            <ul class="submenu">
                                 <li>@Html.ActionLink("Driver Stock Log", "DriverStockLog", "Stock")</li>
                                 <li><a href="#" onclick="alert('Not Implemented Yet!');">New Stock-In Transaction</a></li>
                                 <li><a href="#" onclick="showDriverStockOutModal(this);">New Stock-Out Transaction</a></li>
@@ -147,11 +142,6 @@
                             <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-cubes"></i><span> Liabilities Stock <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
                                 <li>@Html.ActionLink("View Liabilities Stock", "LiabilityStock", "Liability")</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);" class="waves-effect"><i class=" fas fa-exchange-alt"></i><span> Liability Transactions <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
-                            <ul class="submenu">
                                 <li>@Html.ActionLink("View Transactions", "LiabilityTransactions", "Liability")</li>
                             </ul>
                         </li>

@@ -473,7 +473,7 @@ namespace AgencyBizBook.Controllers
                                 FROM AspNetUsers u 
                                 join AspNetUserRoles ur on u.id = ur.UserId
                                 join AspNetRoles r on ur.RoleId = r.Id 
-                                where r.Name == 'Customer';";
+                                where r.Name = 'Customer';";
             using (SqlConnection conn = new SqlConnection(connString))
             {
                 SqlCommand cmd = new SqlCommand(query, conn);
@@ -499,7 +499,7 @@ namespace AgencyBizBook.Controllers
                 dr.Close();
                 conn.Close();
             }
-            return View();
+            return View(modelList);
         }
         [Authorize(Roles = "Admin")]
         public ActionResult CreateCustomer()

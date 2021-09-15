@@ -36,6 +36,14 @@ namespace AgencyBizBook.Controllers
                     SalePrice = model.SalePrice 
                 };
                 db.Products.Add(product);
+                var stock = new Stock()
+                {
+                    LastUpdated = DateTime.Now,
+                    ProductId = product.Id,
+                    Quantity = 0,
+                    TotalWeight = product.NetWeight
+                };
+                db.Stocks.Add(stock);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -60,6 +68,8 @@ namespace AgencyBizBook.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(model).State = EntityState.Modified;
+                var stock = db.Stocks.Where(p => p.ProductId == model.Id).FirstOrDefault();
+                stock.TotalWeight = (stock.Quantity * model.NetWeight);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

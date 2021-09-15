@@ -57,6 +57,7 @@ namespace AgencyBizBook.Controllers
                     Type = "Liability",
                     Description = liability.Name
                 };
+                db.Payments.Add(payment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -88,15 +89,15 @@ namespace AgencyBizBook.Controllers
                 db.LiabilityTransactions.Add(transaction);
 
                 var payment = db.Payments.Where(p => p.LiabilityStockId == liabilityStock.Id).FirstOrDefault();
-                payment.Credit = (double)((model.In) * (model.Liability.Price));
+                payment.Credit = (double)((model.In) * (liabilityStock.Liability.Price));
                 payment.EntryDate = DateTime.Now;
                 payment.LastUpdated = DateTime.Now;
                 db.Entry(payment).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("LiabilityStock");
             }
-            ViewBag.LiabilityId = new SelectList(db.Liabilities.ToList(), model.LiabilityId);
-            ViewBag.DriverId = new SelectList(db.Users.ToList(), model.DriverId);
+            ViewBag.LiabilityId = new SelectList(db.Liabilities.ToList(), "Id", "Name", model.LiabilityId);
+            ViewBag.DriverId = new SelectList(db.Users.ToList(), "Id", "Name", model.DriverId);
             return PartialView(model);
         }
         public ActionResult StockOut()
@@ -111,23 +112,34 @@ namespace AgencyBizBook.Controllers
             if (ModelState.IsValid)
             {
                 var liabilityStock = db.LiabilityStocks.Where(p => p.LiabilityId == model.LiabilityId).FirstOrDefault();
-                liabilityStock.Quantity -= (int)model.Out;
-                liabilityStock.LastUpdated = DateTime.Now;
-                db.Entry(liabilityStock).State = System.Data.Entity.EntityState.Modified;
-                LiabilityTransaction transaction = new LiabilityTransaction()
+                if (model.Out <= liabilityStock.Quantity)
                 {
-                    Date = DateTime.Now,
-                    DriverId = model.DriverId,
-                    LiabilityId = model.LiabilityId,
-                    In = 0,
-                    Out = model.Out
-                };
-                db.LiabilityTransactions.Add(transaction);
-                db.SaveChanges();
-                return RedirectToAction("LiabilityStock");
+                    liabilityStock.Quantity -= (int)model.Out;
+                    liabilityStock.LastUpdated = DateTime.Now;
+                    db.Entry(liabilityStock).State = System.Data.Entity.EntityState.Modified;
+                    LiabilityTransaction transaction = new LiabilityTransaction()
+                    {
+                        Date = DateTime.Now,
+                        DriverId = model.DriverId,
+                        LiabilityId = model.LiabilityId,
+                        In = 0,
+                        Out = model.Out
+                    };
+                    db.LiabilityTransactions.Add(transaction);
+                    db.SaveChanges();
+                    return RedirectToAction("LiabilityStock");
+                }
+                else
+                {
+                    ModelState.AddModelError("Out", "Please Enter A Valid Quantity");
+                    ViewBag.LiabilityId = new SelectList(db.Liabilities.ToList(), "Id", "Name", model.LiabilityId);
+                    ViewBag.DriverId = new SelectList(db.Users.ToList(), "Id", "Name", model.DriverId);
+                    return PartialView(model);
+                }
+
             }
-            ViewBag.LiabilityId = new SelectList(db.Liabilities.ToList(), model.LiabilityId);
-            ViewBag.DriverId = new SelectList(db.Users.ToList(), model.DriverId);
+            ViewBag.LiabilityId = new SelectList(db.Liabilities.ToList(), "Id", "Name", model.LiabilityId);
+            ViewBag.DriverId = new SelectList(db.Users.ToList(), "Id", "Name", model.DriverId);
             return PartialView(model);
         }
     }
