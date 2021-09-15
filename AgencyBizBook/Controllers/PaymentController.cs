@@ -133,6 +133,7 @@ namespace AgencyBizBook.Controllers
         }
         public ActionResult CashIn()
         {
+            ViewBag.RoleId = new SelectList(db.Roles.ToList(), "Id", "Name");
             ViewBag.UserId = new SelectList(db.Users.ToList(), "Id", "Name");
             return PartialView();
         }
@@ -154,11 +155,13 @@ namespace AgencyBizBook.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.RoleId = new SelectList(db.Roles.ToList(), "Id", "Name", model.RoleId);
             ViewBag.UserId = new SelectList(db.Users.ToList(), "Id", "Name", model.UserId);
             return PartialView(model);
         }
         public ActionResult CashOut()
         {
+            ViewBag.RoleId = new SelectList(db.Roles.ToList(), "Id", "Name");
             ViewBag.UserId = new SelectList(db.Users.ToList(), "Id", "Name");
             return PartialView();
         }
@@ -180,8 +183,20 @@ namespace AgencyBizBook.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.RoleId = new SelectList(db.Roles.ToList(), "Id", "Name", model.RoleId);
             ViewBag.UserId = new SelectList(db.Users.ToList(), "Id", "Name", model.UserId);
             return PartialView(model);
+        }
+        public JsonResult GetUsers(string Id)
+        {
+            var users = (from user in db.Users
+                         where user.Roles.Any(p => p.RoleId == Id)
+                         select new
+                         {
+                             Id = user.Id,
+                             Name = user.FirstName + " " + user.LastName
+                         }).ToList();
+            return Json(users, JsonRequestBehavior.AllowGet);
         }
     }
 }

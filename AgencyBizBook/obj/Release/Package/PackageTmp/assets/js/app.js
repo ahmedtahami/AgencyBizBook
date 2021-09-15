@@ -7,7 +7,7 @@ function showDefaultModal(clickevent) {
         $("#expenseModal").html(data);
         $("#expenseModal").modal('show');
     }).fail(function () { alert("Error!") });
-}
+};
 
 function showStockInModal(clickevent) {
     var url = $('#myModal').attr("data-request-url");
@@ -15,7 +15,7 @@ function showStockInModal(clickevent) {
         $("#myModal").html(data);
         $("#myModal").modal('show');
     }).fail(function () { alert("Error!") });
-}
+};
 
 function showStockOutModal(clickevent) {
     var url = $('#myModal1').attr("data-request-url");
@@ -23,7 +23,7 @@ function showStockOutModal(clickevent) {
         $("#myModal1").html(data);
         $("#myModal1").modal('show');
     }).fail(function () { alert("Error!") });
-}
+};
 
 function showDriverStockOutModal(clickevent) {
     var url = $('#myModal2').attr("data-request-url");
@@ -31,7 +31,7 @@ function showDriverStockOutModal(clickevent) {
         $("#myModal2").html(data);
         $("#myModal2").modal('show');
     }).fail(function () { alert("Error!") });
-}
+};
 
 function showLiabilityStockInModal(clickevent) {
     var url = $('#myModal3').attr("data-request-url");
@@ -39,7 +39,7 @@ function showLiabilityStockInModal(clickevent) {
         $("#myModal3").html(data);
         $("#myModal3").modal('show');
     }).fail(function () { alert("Error!") });
-}
+};
 
 function showLiabilityStockOutModal(clickevent) {
     var url = $('#myModal4').attr("data-request-url");
@@ -47,7 +47,7 @@ function showLiabilityStockOutModal(clickevent) {
         $("#myModal4").html(data);
         $("#myModal4").modal('show');
     }).fail(function () { alert("Error!") });
-}
+};
 
 function showCashOutModal(clickevent) {
     var url = $('#cashOutModal').attr("data-request-url");
@@ -55,7 +55,7 @@ function showCashOutModal(clickevent) {
         $("#cashOutModal").html(data);
         $("#cashOutModal").modal('show');
     }).fail(function () { alert("Error!") });
-}
+};
 
 function showCashInModal(clickevent) {
     var url = $('#cashInModal').attr("data-request-url");
@@ -63,7 +63,7 @@ function showCashInModal(clickevent) {
         $("#cashInModal").html(data);
         $("#cashInModal").modal('show');
     }).fail(function () { alert("Error!") });
-}
+};
 
 
 function AddToCartValidator() {
@@ -82,7 +82,7 @@ function AddToCartValidator() {
     }
 
     return true;
-}
+};
 
 if (window.location.href.includes("Sale")) {
     $('#ProductId').change(function () {
@@ -114,7 +114,7 @@ if (window.location.href.includes("Sale")) {
         }
 
     });
-}
+};
 
 
 $(function () {
@@ -143,8 +143,7 @@ $('#addRow').on('click', function () {
     var index = $('#index').val();
     var result = AddToCartValidator();
 
-    if(result)
-    {
+    if (result) {
         t.append("<tr> <td><input type='hidden' class='txtname' name='Products[" + $('#index').val() + "].ProductId' value='" + $('#ProductId').val() + "' />" + $('#ProductId option:selected').text() + "</td>" +
             " <td><input type='hidden' class='txtquantity' name='Products[" + $('#index').val() + "].Quantity' value='" + $('#Quantity').val() + "'/>" + $('#Quantity').val() + "</td>" +
             " <td><input type='hidden' class='txtrate' name='Products[" + $('#index').val() + "].Rate' value='" + $('#Rate').val() + "'/>" + $('#Rate').val() + "</td>" +
@@ -177,9 +176,24 @@ function reindex() {
             index3++;
         });
     });
-}
+};
 
-!function($) {
+$(document).on('change', '#RoleId', function () {
+    var id = $(this).find(':selected').val();
+    $.ajax({
+        type: "GET",
+        url: "/Payment/GetUsers",
+        data: { "Id": id},
+        success: function (data) {
+            var s = '<option value="-1">Select User </option>';
+            for (var i = 0; i < data.length; i++) {
+                s += '<option value="' + data[i].Id + '">' + data[i].Name + '</option>';
+            }
+            $("#UserId").html(s);
+        }
+    });
+});
+!function ($) {
     "use strict";
 
     var MainApp = function () {
@@ -200,107 +214,107 @@ function reindex() {
             touchScrollStep: 50
         });
     },
-    MainApp.prototype.initSlimscroll = function () {
-        $('.slimscroll').slimscroll({
-            height: 'auto',
-            position: 'right',
-            size: "7px",
-            color: '#9ea5ab',
-            touchScrollStep: 50
-        });
-    },
+        MainApp.prototype.initSlimscroll = function () {
+            $('.slimscroll').slimscroll({
+                height: 'auto',
+                position: 'right',
+                size: "7px",
+                color: '#9ea5ab',
+                touchScrollStep: 50
+            });
+        },
 
-    MainApp.prototype.initMetisMenu = function () {
-        //metis menu
-        $("#side-menu").metisMenu();
-    },
+        MainApp.prototype.initMetisMenu = function () {
+            //metis menu
+            $("#side-menu").metisMenu();
+        },
 
-    MainApp.prototype.initLeftMenuCollapse = function () {
-        // Left menu collapse
-        $('.button-menu-mobile').on('click', function (event) {
-            event.preventDefault();
-            $("body").toggleClass("enlarged");
-        });
-    },
+        MainApp.prototype.initLeftMenuCollapse = function () {
+            // Left menu collapse
+            $('.button-menu-mobile').on('click', function (event) {
+                event.preventDefault();
+                $("body").toggleClass("enlarged");
+            });
+        },
 
-    MainApp.prototype.initEnlarge = function () {
-        if ($(window).width() < 1025) {
-            $('body').addClass('enlarged');
-        } else {
-            if ($('body').data('keep-enlarged') != true)
-                $('body').removeClass('enlarged');
-        }
-    },
-
-    MainApp.prototype.initActiveMenu = function () {
-        // === following js will activate the menu in left side bar based on url ====
-        $("#sidebar-menu a").each(function () {
-            var pageUrl = window.location.href.split(/[?#]/)[0];
-            if (this.href == pageUrl) {
-                $(this).addClass("mm-active");
-                $(this).parent().addClass("mm-active"); // add active to li of the current link
-                $(this).parent().parent().addClass("mm-show");
-                $(this).parent().parent().prev().addClass("mm-active"); // add active class to an anchor
-                $(this).parent().parent().parent().addClass("mm-active");
-                $(this).parent().parent().parent().parent().addClass("mm-show"); // add active to li of the current link
-                $(this).parent().parent().parent().parent().parent().addClass("mm-active");
-            }
-        });
-    },
-
-    MainApp.prototype.initComponents = function () {
-        $('[data-toggle="tooltip"]').tooltip();
-        $('[data-toggle="popover"]').popover();
-    },
-
-    //full screen
-    MainApp.prototype.initFullScreen = function () {
-        var $this = this;
-        $this.$btnFullScreen.on("click", function (e) {
-            e.preventDefault();
-
-            if (!document.fullscreenElement && /* alternative standard method */ !document.mozFullScreenElement && !document.webkitFullscreenElement) {  // current working methods
-                if (document.documentElement.requestFullscreen) {
-                    document.documentElement.requestFullscreen();
-                } else if (document.documentElement.mozRequestFullScreen) {
-                    document.documentElement.mozRequestFullScreen();
-                } else if (document.documentElement.webkitRequestFullscreen) {
-                    document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-                }
+        MainApp.prototype.initEnlarge = function () {
+            if ($(window).width() < 1025) {
+                $('body').addClass('enlarged');
             } else {
-                if (document.cancelFullScreen) {
-                    document.cancelFullScreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.webkitCancelFullScreen) {
-                    document.webkitCancelFullScreen();
-                }
+                if ($('body').data('keep-enlarged') != true)
+                    $('body').removeClass('enlarged');
             }
-        });
-    },
+        },
+
+        MainApp.prototype.initActiveMenu = function () {
+            // === following js will activate the menu in left side bar based on url ====
+            $("#sidebar-menu a").each(function () {
+                var pageUrl = window.location.href.split(/[?#]/)[0];
+                if (this.href == pageUrl) {
+                    $(this).addClass("mm-active");
+                    $(this).parent().addClass("mm-active"); // add active to li of the current link
+                    $(this).parent().parent().addClass("mm-show");
+                    $(this).parent().parent().prev().addClass("mm-active"); // add active class to an anchor
+                    $(this).parent().parent().parent().addClass("mm-active");
+                    $(this).parent().parent().parent().parent().addClass("mm-show"); // add active to li of the current link
+                    $(this).parent().parent().parent().parent().parent().addClass("mm-active");
+                }
+            });
+        },
+
+        MainApp.prototype.initComponents = function () {
+            $('[data-toggle="tooltip"]').tooltip();
+            $('[data-toggle="popover"]').popover();
+        },
+
+        //full screen
+        MainApp.prototype.initFullScreen = function () {
+            var $this = this;
+            $this.$btnFullScreen.on("click", function (e) {
+                e.preventDefault();
+
+                if (!document.fullscreenElement && /* alternative standard method */ !document.mozFullScreenElement && !document.webkitFullscreenElement) {  // current working methods
+                    if (document.documentElement.requestFullscreen) {
+                        document.documentElement.requestFullscreen();
+                    } else if (document.documentElement.mozRequestFullScreen) {
+                        document.documentElement.mozRequestFullScreen();
+                    } else if (document.documentElement.webkitRequestFullscreen) {
+                        document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+                    }
+                } else {
+                    if (document.cancelFullScreen) {
+                        document.cancelFullScreen();
+                    } else if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen();
+                    } else if (document.webkitCancelFullScreen) {
+                        document.webkitCancelFullScreen();
+                    }
+                }
+            });
+        },
 
 
 
-    MainApp.prototype.init = function () {
-        this.intSlimscrollmenu();
-        this.initSlimscroll();
-        this.initMetisMenu();
-        this.initLeftMenuCollapse();
-        this.initEnlarge();
-        this.initActiveMenu();
-        this.initComponents();
-        this.initFullScreen();
-        Waves.init();
-    },
+        MainApp.prototype.init = function () {
+            this.intSlimscrollmenu();
+            this.initSlimscroll();
+            this.initMetisMenu();
+            this.initLeftMenuCollapse();
+            this.initEnlarge();
+            this.initActiveMenu();
+            this.initComponents();
+            this.initFullScreen();
+            Waves.init();
+        },
 
-    //init
-    $.MainApp = new MainApp, $.MainApp.Constructor = MainApp
+        //init
+        $.MainApp = new MainApp, $.MainApp.Constructor = MainApp
 }(window.jQuery),
 
-//initializing
-function ($) {
-    "use strict";
-    $.MainApp.init();
+    //initializing
+    function ($) {
+        "use strict";
+        $.MainApp.init();
     }(window.jQuery);
 
 //$('#createBtn').click(function () {

@@ -28,6 +28,8 @@ namespace AgencyBizBook.Models
     {
         [Display(Name = "User")]
         public string UserId { get; set; }
+        [Display(Name = "Role")]
+        public string RoleId { get; set; }
         public double Amount { get; set; }
         [MaxLength(50)]
         public string Description { get; set; }
