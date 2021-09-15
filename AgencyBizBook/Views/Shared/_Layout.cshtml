@@ -107,8 +107,8 @@
                         <li>
                             <a href="javascript:void(0);" class="waves-effect"><i class="far fa-credit-card"></i><span> Payments <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
-                                <li>@Html.ActionLink("New Cash In", "Index", "Payment")</li>
-                                <li>@Html.ActionLink("New Cash Out", "Index", "Payment")</li>
+                                <li><a href="#" onclick="showCashInModal(this);">Cash In</a></li>
+                                <li><a href="#" onclick="showCashOutModal(this);">Cash Out</a></li>
                                 <li>@Html.ActionLink("Balance Sheet", "Index", "Payment")</li>
                                 <li>@Html.ActionLink("Customer Ledger", "Index", "Payment", new { customerLedger = true }, null)</li>
                                 <li>@Html.ActionLink("Supplier Ledger", "Index", "Payment", new { supplierLedger = true }, null)</li>
@@ -116,19 +116,14 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-tags"></i><span> Expenses Category<span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
-                            <ul class="submenu">
-                                <li><a href="#" onclick="showDefaultModal(this);">New Category</a></li>
-                                <li>@Html.ActionLink("View Categories", "ExpenseCategories", "Payment")</li>
-                            </ul>
-                        </li>
-                        <li>
                             <a href="javascript:void(0);" class="waves-effect"><i class="fas fa-file-invoice-dollar"></i><span> Expenses <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
+                                <li><a href="#" onclick="showDefaultModal(this);">New Category</a></li>
                                 <li>@Html.ActionLink("New Expense", "AddExpense", "Payment")</li>
                                 <li>@Html.ActionLink("Todays Expense", "Expenses", "Payment", new { today = true }, null)</li>
                                 <li>@Html.ActionLink("Monthly Expenses", "Expenses", "Payment", new { currentMonth = true }, null)</li>
                                 <li>@Html.ActionLink("View Expenses", "Expenses", "Payment")</li>
+                                <li>@Html.ActionLink("View Categories", "ExpenseCategories", "Payment")</li>
                             </ul>
                         </li>
                         <li>
@@ -191,8 +186,10 @@
         <!-- ============================================================== -->
 
     </div>
+    <div class="modal bd-example-modal-lg" id="cashInModal" data-request-url="@Url.Action("CashIn","Payment")" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"></div>
+    <div class="modal bd-example-modal-lg" id="cashOutModal" data-request-url="@Url.Action("CashOut","Payment")" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"></div>
     <div class="modal bd-example-modal-lg" id="myModal2" data-request-url="@Url.Action("DriverStockOut","Stock")" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"></div>
-    <div class="modal bd-example-modal-lg" id="dModal" data-request-url="@Url.Action("AddExpenseCategory","Payment")" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"></div>
+    <div class="modal bd-example-modal-lg" id="expenseModal" data-request-url="@Url.Action("AddExpenseCategory","Payment")" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"></div>
     <!-- END wrapper -->
     @Scripts.Render("~/Site/Scripts")
     @RenderSection("scripts", required: false)

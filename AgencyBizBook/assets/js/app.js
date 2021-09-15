@@ -2,10 +2,10 @@
 var stock = 0;
 
 function showDefaultModal(clickevent) {
-    var url = $('#dModal').attr("data-request-url");
+    var url = $('#expenseModal').attr("data-request-url");
     $.get(url, function (data) {
-        $("#dModal").html(data);
-        $("#dModal").modal('show');
+        $("#expenseModal").html(data);
+        $("#expenseModal").modal('show');
     }).fail(function () { alert("Error!") });
 }
 
@@ -46,6 +46,22 @@ function showLiabilityStockOutModal(clickevent) {
     $.get(url, function (data) {
         $("#myModal4").html(data);
         $("#myModal4").modal('show');
+    }).fail(function () { alert("Error!") });
+}
+
+function showCashOutModal(clickevent) {
+    var url = $('#cashOutModal').attr("data-request-url");
+    $.get(url, function (data) {
+        $("#cashOutModal").html(data);
+        $("#cashOutModal").modal('show');
+    }).fail(function () { alert("Error!") });
+}
+
+function showCashInModal(clickevent) {
+    var url = $('#cashInModal').attr("data-request-url");
+    $.get(url, function (data) {
+        $("#cashInModal").html(data);
+        $("#cashInModal").modal('show');
     }).fail(function () { alert("Error!") });
 }
 

@@ -81,7 +81,7 @@ namespace AgencyBizBook.Controllers
                                  Description = expense.Description
                              }).ToList();
             }
-            
+
             return View(modelList);
         }
         public ActionResult AddExpense()
@@ -133,12 +133,55 @@ namespace AgencyBizBook.Controllers
         }
         public ActionResult CashIn()
         {
-            //user-liabiltyStock
+            ViewBag.UserId = new SelectList(db.Users.ToList(), "Id", "Name");
             return PartialView();
+        }
+        [HttpPost]
+        public ActionResult CashIn(CashTranactionViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Payment payment = new Payment()
+                {
+                    Credit = model.Amount,
+                    Description = model.Description,
+                    EntryDate = DateTime.Now,
+                    LastUpdated = DateTime.Now,
+                    Type = model.Type,
+                    UserId = model.UserId
+                };
+                db.Payments.Add(payment);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.UserId = new SelectList(db.Users.ToList(), "Id", "Name", model.UserId);
+            return PartialView(model);
         }
         public ActionResult CashOut()
         {
+            ViewBag.UserId = new SelectList(db.Users.ToList(), "Id", "Name");
             return PartialView();
+        }
+        [HttpPost]
+        public ActionResult CashOut(CashTranactionViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Payment payment = new Payment()
+                {
+                    Debit = model.Amount,
+                    Description = model.Description,
+                    EntryDate = DateTime.Now,
+                    LastUpdated = DateTime.Now,
+                    Type = model.Type,
+                    UserId = model.UserId
+                };
+                db.Payments.Add(payment);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.UserId = new SelectList(db.Users.ToList(), "Id", "Name", model.UserId);
+            return PartialView(model);
         }
     }
 }

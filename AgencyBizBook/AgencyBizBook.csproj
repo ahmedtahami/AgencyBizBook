@@ -198,7 +198,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DashboardIndexViewModel.cs" />
     <Compile Include="Models\EmployeeViewModels.cs" />
-    <Compile Include="Models\ExpenseViewModel.cs" />
+    <Compile Include="Models\PaymentViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PurchaseViewModel.cs" />
@@ -443,6 +443,8 @@
     <Content Include="Views\Stock\DriverStockOut.cshtml" />
     <Content Include="Views\Account\CreateCustomer.cshtml" />
     <Content Include="Views\Account\Customers.cshtml" />
+    <Content Include="Views\Payment\CashIn.cshtml" />
+    <Content Include="Views\Payment\CashOut.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
