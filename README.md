@@ -32,5 +32,5 @@ context.Users.Add(user);
 context.SaveChanges();
 ```
 
-- Reopen the Package Manager Console and write  ```cupdate-database```
+- Reopen the Package Manager Console and write  ```update-database```
 - Now your project is ready to run. Enjoy!
