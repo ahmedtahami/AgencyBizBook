@@ -3,9 +3,9 @@
 ## How to Start Application
 
 - Open Package Manager Console (Tools>Nuget Package Manager>Package Manager Console)
-- Write ```c#enable-migrations```
-- A new Folder will be genrated in the solution named as Migrations it will have a file Configuration.cs open that file and change ```c#AutomaticMigrationsEnabled``` to ```c#true```
-- Add the following code to ```c#Seed()``` method to make an admin account for login.
+- Write ```enable-migrations```
+- A new Folder will be genrated in the solution named as Migrations it will have a file Configuration.cs open that file and change ```AutomaticMigrationsEnabled``` to ```true```
+- Add the following code to ```Seed()``` method to make an admin account for login.
 
 ```c#
 var passwordHasher = new PasswordHasher();
@@ -32,5 +32,5 @@ context.Users.Add(user);
 context.SaveChanges();
 ```
 
-- Reopen the Package Manager Console and write  ```c#update-database```
+- Reopen the Package Manager Console and write  ```cupdate-database```
 - Now your project is ready to run. Enjoy!
