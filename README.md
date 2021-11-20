@@ -33,4 +33,5 @@ context.SaveChanges();
 ```
 
 - Reopen the Package Manager Console and write  ```update-database```
+- Go back to Configuration.cs and comment the code in ```Seed()``` method.
 - Now your project is ready to run. Enjoy!
